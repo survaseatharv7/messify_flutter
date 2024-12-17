@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "579643748294",
+    "project_id": "messify-flutter",
+    "storage_bucket": "messify-flutter.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579643748294:android:01bdbc48426f9975df0cc7",
+        "android_client_info": {
+          "package_name": "com.example.messify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCseZOQg7tDdizV6Pv51Z4dU2c041QXTL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
