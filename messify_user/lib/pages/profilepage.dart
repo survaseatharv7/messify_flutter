@@ -4,6 +4,7 @@ import 'package:messify/main.dart';
 import 'package:messify/pages/MainDashboard.dart';
 import 'package:messify/pages/editprofile.dart';
 import 'package:messify/pages/loginScreen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const Myapp());
@@ -47,37 +48,12 @@ class _MessifyState extends State<Messify> {
                 ),
               );
             },
-            child: Icon(Icons.arrow_back)),
+            child: const Icon(Icons.arrow_back)),
       ),
-      /*appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 141, 118, 1),
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.notifications_outlined,
-              color: Colors.white,
-              size: 30,
-            ),
-          ),
-        ],
-        title: Text(
-          "Profile",
-          style: GoogleFonts.poppins(
-              color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-      ),*/
       body: Container(
-        //color: Colors.white,
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            //  mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: 200,
@@ -94,20 +70,6 @@ class _MessifyState extends State<Messify> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 150,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color.fromRGBO(255, 121, 46, 1),
-                            Color.fromRGBO(255, 181, 100, 1),
-                          ],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                      ),
-                    ),
                     Positioned(
                       bottom: 0,
                       child: Container(
@@ -159,7 +121,7 @@ class _MessifyState extends State<Messify> {
                   children: [
                     Container(
                         width: MediaQuery.of(context).size.width,
-                        color: Color.fromRGBO(246, 246, 246, 1),
+                        color: const Color.fromRGBO(246, 246, 246, 1),
                         child: Padding(
                           padding: const EdgeInsets.only(left: 26),
                           child: Text(
@@ -178,8 +140,6 @@ class _MessifyState extends State<Messify> {
                 child: Row(
                   children: [
                     Container(
-                      //width: MediaQuery.of(context).size.width,
-                      //color: Color.fromRGBO(246, 246, 246, 1),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 26),
                         child: Text(
@@ -191,9 +151,9 @@ class _MessifyState extends State<Messify> {
                         ),
                       ),
                     ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Spacer(),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.black,
@@ -208,8 +168,6 @@ class _MessifyState extends State<Messify> {
                 child: Row(
                   children: [
                     Container(
-                      //width: MediaQuery.of(context).size.width,
-                      //color: Color.fromRGBO(246, 246, 246, 1),
                       child: Padding(
                         padding: const EdgeInsets.only(left: 26),
                         child: Text(
@@ -221,9 +179,9 @@ class _MessifyState extends State<Messify> {
                         ),
                       ),
                     ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const Spacer(),
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.black,
@@ -233,231 +191,15 @@ class _MessifyState extends State<Messify> {
                   ],
                 ),
               ),
-              /* Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      //width: MediaQuery.of(context).size.width,
-                      //color: Color.fromRGBO(246, 246, 246, 1),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 26),
-                        child: Text(
-                          "About Us",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  children: [
-                    Container(
-                        width: MediaQuery.of(context).size.width,
-                        color: Color.fromRGBO(246, 246, 246, 1),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 26),
-                          child: Text(
-                            "Content",
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      //width: MediaQuery.of(context).size.width,
-                      //color: Color.fromRGBO(246, 246, 246, 1),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 26),
-                        child: Text(
-                          "Downloads",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      //width: MediaQuery.of(context).size.width,
-                      //color: Color.fromRGBO(246, 246, 246, 1),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 26),
-                        child: Text(
-                          "Favourite",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  children: [
-                    Container(
-                        width: MediaQuery.of(context).size.width,
-                        color: Color.fromRGBO(246, 246, 246, 1),
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 26),
-                          child: Text(
-                            "Preferences",
-                            style: GoogleFonts.poppins(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600),
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      //width: MediaQuery.of(context).size.width,
-                      //color: Color.fromRGBO(246, 246, 246, 1),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 26),
-                        child: Text(
-                          "Language",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      //width: MediaQuery.of(context).size.width,
-                      //color: Color.fromRGBO(246, 246, 246, 1),
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 26),
-                        child: Text(
-                          "Dark Mode",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        color: Colors.black,
-                        size: 15,
-                      ),
-                    ),
-                  ],
-                ),
-              )*/
-
               Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 20.0, vertical: 20.0),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    // Add your logout functionality here
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text('Logout Confirmation'),
-                          content: Text('Are you sure you want to log out?'),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context),
-                              child: Text('Cancel'),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.pop(context); // Close the dialog
-                                // Perform logout
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => Loginscreen()),
-                                    (route) => false);
-                              },
-                              child: Text('Logout'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    // Directly logout without checking session expiration
+                    _logout();
                   },
-                  icon: Icon(Icons.logout, color: Colors.white),
+                  icon: const Icon(Icons.logout, color: Colors.white),
                   label: Text(
                     'Logout',
                     style: GoogleFonts.poppins(
@@ -467,7 +209,7 @@ class _MessifyState extends State<Messify> {
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: const Size(double.infinity, 50),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -478,6 +220,19 @@ class _MessifyState extends State<Messify> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('login_time'); // Clear any saved login time
+    await prefs.setBool(
+        'isLoggedIn', false); // Set isLoggedIn to false after logout
+
+    // Navigate to the login screen
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => Loginscreen()),
+      (route) => false, // Remove all previous routes
     );
   }
 }

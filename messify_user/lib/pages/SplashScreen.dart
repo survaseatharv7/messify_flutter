@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:messify/pages/MainDashboard.dart';
 import 'package:messify/pages/loginScreen.dart';
 import 'package:messify/pages/sessionData.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
@@ -14,24 +15,30 @@ class _SplashscreenState extends State<Splashscreen> {
   @override
   void initState() {
     super.initState();
-    navigateToNextScreen();
+    _checkLoginStatus();
   }
 
-  void navigateToNextScreen() async {
-    // Wait for 2 seconds (Splash screen duration)
+  Future<void> _checkLoginStatus() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+    // Simulate a delay for splash screen
     await Future.delayed(const Duration(seconds: 2));
 
-    // Fetch session data
-    await Sessiondata.getSessionData();
-
-    // Navigate to appropriate screen
-    if (Sessiondata.islogin == true) {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const Maindashboard()),
+  
+    if (isLoggedIn) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                const Maindashboard()), // Navigate to dashboard if logged in
       );
     } else {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => Loginscreen()),
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                Loginscreen()), // Navigate to login screen if not logged in
       );
     }
   }
