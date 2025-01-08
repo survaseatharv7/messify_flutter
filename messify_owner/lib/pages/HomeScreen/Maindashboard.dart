@@ -34,24 +34,7 @@ class _MaindashboardState extends State<Maindashboard> {
 
   @override
   Widget build(BuildContext context) {
-    // listOfReviewsListGetter();
     return Scaffold(
-      /*appBar: AppBar(
-        title: Row(
-          children: [
-            Text(MainApp.messName),
-            Spacer(),
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => GenerateQRCodePage()));
-                },
-                icon: Icon(Icons.qr_code_scanner))
-          ],
-        ),
-      ),*/
       backgroundColor: const Color.fromRGBO(255, 121, 46, 1),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -99,31 +82,61 @@ class _DashboardPageState extends State<DashboardPage> {
   List options = [];
   List optionList = [];
   bool isPoll = false;
-  int? documentCount;
+  bool isFeedback = false;
+  bool isInterested = false;
+  int _selectedTabIndex = 0;
 
   @override
   void initState() {
     super.initState();
-    initializeData();
+    // initializeData();
   }
 
-  void initializeData() async {
-    await getInterestedData();
-    await pollDataGetter();
-    await listOfReviewsListGetter();
-  }
+  // void initializeData() async {
+  //   await feedback();
+  // }
 
-  Future<void> getInterestedData() async {
+  Stream<int> getInterestedUserCountStream() {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
-    QuerySnapshot<Map<String, dynamic>> response = await FirebaseFirestore
-        .instance
+    return FirebaseFirestore.instance
         .collection("Notify")
         .doc(MainApp.messName)
         .collection(formattedDate)
-        .get();
-    documentCount = response.docs.length;
-    print("hii $documentCount");
+        .snapshots()
+        .map((snapshot) => snapshot.docs.length);
+  }
+
+  // Future<void> feedback() async {
+  //   QuerySnapshot response =
+  //       await FirebaseFirestore.instance.collection("Feedback").get();
+
+  //   bool isFeedback = false;
+
+  //   for (int i = 0; i < response.docs.length; i++) {
+  //     if (response.docs[i].id == MainApp.messName) {
+  //       isFeedback = true;
+  //       this.isFeedback = true;
+  //     }
+  //   }
+  // }
+
+  Stream<List<Map<String, dynamic>>>? listOfReviewStream() {
+    return FirebaseFirestore.instance
+        .collection('Feedback')
+        .doc(MainApp.messName)
+        .collection('UsersFeedback')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return {
+          'Name': doc['Name'],
+          'date': doc['date'],
+          'review': doc['review'],
+          'starIndex': doc['starIndex'] + 1,
+        };
+      }).toList();
+    });
   }
 
   Future<void> pollDataGetter() async {
@@ -175,11 +188,132 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() {});
   }
 
+  Widget interestedUserCountCard() {
+    return StreamBuilder(
+        stream: getInterestedUserCountStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Error : ${snapshot.error}"),
+            );
+          }
+          return Text(
+            "Interested Users: ${snapshot.data ?? 0}",
+            style: TextStyle(
+                fontSize: MainApp.widthCal(20), fontWeight: FontWeight.bold),
+          );
+        });
+  }
+
+  Widget feedbackCard() {
+    return StreamBuilder<List<Map<String, dynamic>>>(
+        stream: listOfReviewStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Error : ${snapshot.error}"),
+            );
+          }
+          if (!snapshot.hasData) {
+            return Center(child: Text("No Feedbacks Found"));
+          }
+          final feedbackList = snapshot.data!;
+          return ListView.builder(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: feedbackList.length,
+            itemBuilder: (context, index) {
+              dynamic review = feedbackList[index];
+              return Padding(
+                padding: EdgeInsets.symmetric(vertical: MainApp.heightCal(8)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(
+                      MainApp.widthCal(10),
+                    ),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 6.0,
+                        offset: Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  padding: EdgeInsets.all(
+                    MainApp.widthCal(16),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${review['Name']}",
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: MainApp.widthCal(18),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: MainApp.heightCal(8)),
+                      Row(
+                        children: List.generate(5, (starIndex) {
+                          return Icon(
+                            starIndex < review['starIndex']
+                                ? Icons.star
+                                : Icons.star_border_outlined,
+                            color: const Color.fromARGB(255, 195, 175, 0),
+                          );
+                        }),
+                      ),
+                      SizedBox(height: MainApp.heightCal(10)),
+                      Text(
+                        review['review'],
+                        style: GoogleFonts.poppins(
+                          color: Colors.black,
+                          fontSize: MainApp.widthCal(16),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      SizedBox(height: MainApp.heightCal(10)),
+                      Text(
+                        "Posted on: ${review['date']}",
+                        style: GoogleFonts.poppins(
+                          color: Colors.grey,
+                          fontSize: MainApp.widthCal(14),
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    // listOfReviewsListGetter();
-    // pollDataGetter();
+    if (_selectedTabIndex == 0) {
+      isInterested = true;
+      isFeedback = false;
+    } else {
+      isInterested = false;
+      isFeedback = true;
+    }
+
     return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -265,183 +399,227 @@ class _DashboardPageState extends State<DashboardPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (isPoll)
-                    Column(
+                  // if (isPoll)
+                  //   StreamBuilder(
+                  //       stream: FirebaseFirestore.instance
+                  //           .collection('Poll')
+                  //           .doc(MainApp.messName)
+                  //           .collection('PollData')
+                  //           .doc('$year-$month-$date')
+                  //           .snapshots(),
+                  //       builder: (context, snapshot) {
+                  //         if (snapshot.connectionState ==
+                  //             ConnectionState.waiting) {
+                  //           return Center(
+                  //             child: CircularProgressIndicator(),
+                  //           );
+                  //         }
+                  //         if (snapshot.hasError) {
+                  //           return Center(
+                  //             child: Text("Error : ${snapshot.error}"),
+                  //           );
+                  //         }
+                  //         return Column(
+                  //           children: [
+                  //             Text(
+                  //               "Poll Results for ${pollDetails['question']}",
+                  //               style: GoogleFonts.poppins(
+                  //                 fontSize: MainApp.widthCal(20),
+                  //                 fontWeight: FontWeight.bold,
+                  //                 color: Colors.black87,
+                  //               ),
+                  //             ),
+                  //             SizedBox(height: MainApp.heightCal(20)),
+                  //             SizedBox(
+                  //               height: MainApp.heightCal(200),
+                  //               child: BarChart(
+                  //                 BarChartData(
+                  //                   alignment: BarChartAlignment.spaceAround,
+                  //                   maxY: MainApp.heightCal(20),
+                  //                   barGroups: [
+                  //                     BarChartGroupData(
+                  //                       x: 0,
+                  //                       barRods: [
+                  //                         BarChartRodData(
+                  //                           toY: (options[0]['votes'] as num)
+                  //                               .toDouble(),
+                  //                           color: Colors.orange,
+                  //                           width: MainApp.widthCal(20),
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                     BarChartGroupData(
+                  //                       x: 1,
+                  //                       barRods: [
+                  //                         BarChartRodData(
+                  //                           toY: (options[1]['votes'] as num)
+                  //                               .toDouble(),
+                  //                           color: Colors.blue,
+                  //                           width: MainApp.widthCal(20),
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                     BarChartGroupData(
+                  //                       x: 2,
+                  //                       barRods: [
+                  //                         BarChartRodData(
+                  //                           toY: (options[2]['votes'] as num)
+                  //                               .toDouble(),
+                  //                           color: Colors.green,
+                  //                           width: MainApp.widthCal(20),
+                  //                         ),
+                  //                       ],
+                  //                     ),
+                  //                   ],
+                  //                   titlesData: FlTitlesData(
+                  //                     leftTitles: const AxisTitles(
+                  //                       sideTitles:
+                  //                           SideTitles(showTitles: false),
+                  //                     ),
+                  //                     bottomTitles: AxisTitles(
+                  //                       sideTitles: SideTitles(
+                  //                         showTitles: true,
+                  //                         getTitlesWidget:
+                  //                             (double value, TitleMeta meta) {
+                  //                           switch (value.toInt()) {
+                  //                             case 0:
+                  //                               return Text(
+                  //                                   '${options[0]['title']}');
+                  //                             case 1:
+                  //                               return Text(
+                  //                                   '${options[1]['title']}');
+                  //                             case 2:
+                  //                               return Text(
+                  //                                   '${options[2]['title']}');
+                  //                             default:
+                  //                               return const Text('Bhendi Fry');
+                  //                           }
+                  //                         },
+                  //                       ),
+                  //                     ),
+                  //                   ),
+                  //                   borderData: FlBorderData(show: false),
+                  //                   barTouchData: BarTouchData(enabled: true),
+                  //                 ),
+                  //               ),
+                  //             ),
+                  //           ],
+                  //         );
+                  //       }),
+                  // SizedBox(
+                  //   height: MainApp.heightCal(20),
+                  // ),
+
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          "Poll Results for ${pollDetails['question']}",
-                          style: GoogleFonts.poppins(
-                            fontSize: MainApp.widthCal(20),
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
-                          ),
-                        ),
-                        SizedBox(height: MainApp.heightCal(20)),
-                        SizedBox(
-                          height: MainApp.heightCal(200),
-                          child: BarChart(
-                            BarChartData(
-                              alignment: BarChartAlignment.spaceAround,
-                              maxY: MainApp.heightCal(20),
-                              barGroups: [
-                                BarChartGroupData(
-                                  x: 0,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: (options[0]['votes'] as num)
-                                          .toDouble(),
-                                      color: Colors.orange,
-                                      width: MainApp.widthCal(20),
-                                    ),
-                                  ],
-                                ),
-                                BarChartGroupData(
-                                  x: 1,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: (options[1]['votes'] as num)
-                                          .toDouble(),
-                                      color: Colors.blue,
-                                      width: MainApp.widthCal(20),
-                                    ),
-                                  ],
-                                ),
-                                BarChartGroupData(
-                                  x: 2,
-                                  barRods: [
-                                    BarChartRodData(
-                                      toY: (options[2]['votes'] as num)
-                                          .toDouble(),
-                                      color: Colors.green,
-                                      width: MainApp.widthCal(20),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                              titlesData: FlTitlesData(
-                                leftTitles: const AxisTitles(
-                                  sideTitles: SideTitles(showTitles: false),
-                                ),
-                                bottomTitles: AxisTitles(
-                                  sideTitles: SideTitles(
-                                    showTitles: true,
-                                    getTitlesWidget:
-                                        (double value, TitleMeta meta) {
-                                      switch (value.toInt()) {
-                                        case 0:
-                                          return Text('${options[0]['title']}');
-                                        case 1:
-                                          return Text('${options[1]['title']}');
-                                        case 2:
-                                          return Text('${options[2]['title']}');
-                                        default:
-                                          return const Text('Bhendi Fry');
-                                      }
-                                    },
-                                  ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isInterested = true;
+                              isFeedback = false;
+                              _selectedTabIndex = 0;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: _selectedTabIndex == 0
+                                ? MainApp.heightCal(60)
+                                : MainApp.heightCal(
+                                    50), // Increase height when selected
+                            width: _selectedTabIndex == 0
+                                ? MainApp.widthCal(160)
+                                : MainApp.widthCal(
+                                    160), // Increase width when selected
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(MainApp.widthCal(25)),
+                              gradient: LinearGradient(
+                                colors: _selectedTabIndex == 0
+                                    ? [
+                                        Color.fromRGBO(255, 121, 46, 1),
+                                        Color.fromRGBO(255, 181, 100, 1)
+                                      ]
+                                    : [
+                                        Colors.grey.shade300,
+                                        Colors.grey.shade400
+                                      ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Today's Attendees",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
                                 ),
                               ),
-                              borderData: FlBorderData(show: false),
-                              barTouchData: BarTouchData(enabled: true),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: MainApp.heightCal(20),
+                        SizedBox(width: MainApp.widthCal(10)),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isInterested = false;
+                              isFeedback = true;
+                              _selectedTabIndex = 1;
+                            });
+                          },
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 300),
+                            height: _selectedTabIndex == 1
+                                ? MainApp.heightCal(60)
+                                : MainApp.heightCal(
+                                    50), // Increase height when selected
+                            width: _selectedTabIndex == 1
+                                ? MainApp.widthCal(160)
+                                : MainApp.widthCal(
+                                    160), // Increase width when selected
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(MainApp.widthCal(25)),
+                              gradient: LinearGradient(
+                                colors: _selectedTabIndex == 1
+                                    ? [
+                                        Color.fromRGBO(255, 121, 46, 1),
+                                        Color.fromRGBO(255, 181, 100, 1)
+                                      ]
+                                    : [
+                                        Colors.grey.shade300,
+                                        Colors.grey.shade400
+                                      ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Feedbacks",
+                                style: GoogleFonts.poppins(
+                                  fontSize: MainApp.widthCal(15),
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                        Text(
-                          "Interested Users: $documentCount",
-                          style: TextStyle(
-                              fontSize: MainApp.widthCal(20),
-                              fontWeight: FontWeight.bold),
-                        ),
+                        SizedBox(width: MainApp.widthCal(10)),
                       ],
                     ),
+                  ),
                   SizedBox(
                     height: MainApp.heightCal(20),
                   ),
-                  Text(
-                    "Feedback",
-                    style: GoogleFonts.poppins(
-                      fontSize: MainApp.widthCal(20),
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: listOfReviews.length,
-                      itemBuilder: (context, index) {
-                        dynamic review = listOfReviews[index];
-                        return Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: MainApp.heightCal(8)),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(
-                                MainApp.widthCal(10),
-                              ),
-                              boxShadow: const [
-                                BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 6.0,
-                                  offset: Offset(0, 2),
-                                ),
-                              ],
-                            ),
-                            padding: EdgeInsets.all(
-                              MainApp.widthCal(16),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "${review['Name']}",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: MainApp.widthCal(18),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                SizedBox(height: MainApp.heightCal(8)),
-                                Row(
-                                  children: List.generate(5, (starIndex) {
-                                    return Icon(
-                                      starIndex < review['starIndex']
-                                          ? Icons.star
-                                          : Icons.star_border_outlined,
-                                      color: const Color.fromARGB(
-                                          255, 195, 175, 0),
-                                    );
-                                  }),
-                                ),
-                                SizedBox(height: MainApp.heightCal(10)),
-                                Text(
-                                  review['review'],
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.black,
-                                    fontSize: MainApp.widthCal(16),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                SizedBox(height: MainApp.heightCal(10)),
-                                Text(
-                                  "Posted on: ${review['date']}",
-                                  style: GoogleFonts.poppins(
-                                    color: Colors.grey,
-                                    fontSize: MainApp.widthCal(14),
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
+                  if (isInterested) interestedUserCountCard(),
+
+                  if (isFeedback) feedbackCard(),
                 ],
               ),
             ),
