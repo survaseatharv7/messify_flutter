@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
 
 class Splashscreen extends StatelessWidget {
@@ -25,8 +26,8 @@ class Splashscreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 250,
-              width: 300,
+              height: MainApp.heightCal(250),
+              width: MainApp.widthCal(300),
               child: Image.asset(
                 "assets/messify.png",
                 fit: BoxFit.fill,
@@ -36,8 +37,8 @@ class Splashscreen extends StatelessWidget {
               height: 2,
             ),
             Container(
-              height: 300,
-              width: 300,
+              height: MainApp.heightCal(300),
+              width: MainApp.widthCal(300),
               child: Image.asset("assets/logo.png"),
             ),
           ],

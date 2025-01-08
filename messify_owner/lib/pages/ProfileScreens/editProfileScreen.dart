@@ -101,7 +101,7 @@ class _MyappState extends State<Myapp1> {
               //  mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 200,
+                  height: MainApp.heightCal(200),
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -116,8 +116,8 @@ class _MyappState extends State<Myapp1> {
                     alignment: Alignment.center,
                     children: [
                       Positioned(
-                        top: 30,
-                        left: 10,
+                        top: MainApp.heightCal(30),
+                        left: MainApp.widthCal(10),
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
@@ -127,7 +127,7 @@ class _MyappState extends State<Myapp1> {
                           child: Container(
                             child: Icon(
                               Icons.arrow_back_ios_new,
-                              size: 30,
+                              size: MainApp.widthCal(30),
                               color: Colors.white,
                             ),
                           ),
@@ -135,7 +135,7 @@ class _MyappState extends State<Myapp1> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 150,
+                        height: MainApp.heightCal(150),
                         //      decoration: const BoxDecoration(
                         //   gradient: LinearGradient(
                         //     colors: [
@@ -148,13 +148,15 @@ class _MyappState extends State<Myapp1> {
                         // ),
                       ),
                       Positioned(
-                        bottom: 0,
+                        bottom: MainApp.heightCal(0),
                         child: Container(
-                          height: 122,
-                          width: 122,
+                          height: MainApp.heightCal(122),
+                          width: MainApp.widthCal(122),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 5),
+                            border: Border.all(
+                                color: Colors.white,
+                                width: MainApp.widthCal(8)),
                           ),
                           child: Image.asset(
                             "assets/avtar.jpeg",
@@ -195,175 +197,211 @@ class _MyappState extends State<Myapp1> {
                 // ),
 
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(
+                    left: MainApp.widthCal(36),
+                    top: MainApp.heightCal(20),
+                  ),
                   child: Row(
                     children: [
                       Text(
                         "Mess Name",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: MainApp.widthCal(14),
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36),
+                      right: MainApp.widthCal(36),
+                      top: MainApp.heightCal(2)),
                   child: Container(
                     child: TextField(
                       readOnly: true,
                       controller: _messNameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(8)),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36), top: MainApp.heightCal(20)),
                   child: Row(
                     children: [
                       Text(
                         "Owner Name",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: MainApp.widthCal(14),
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36),
+                      right: MainApp.widthCal(36),
+                      top: MainApp.heightCal(2)),
                   child: Container(
                     child: TextField(
                       controller: _ownerNameController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(8)),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36), top: MainApp.heightCal(20)),
                   child: Row(
                     children: [
                       Text(
                         "Email I'd",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: MainApp.widthCal(14),
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36),
+                      right: MainApp.widthCal(36),
+                      top: MainApp.heightCal(2)),
                   child: Container(
                     child: TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(
+                              MainApp.widthCal(8),
+                            ),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36), top: MainApp.heightCal(20)),
                   child: Row(
                     children: [
                       Text(
                         "Phone Number",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: MainApp.widthCal(14),
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36),
+                      right: MainApp.widthCal(36),
+                      top: MainApp.heightCal(2)),
                   child: Container(
                     child: TextField(
                       controller: _phoneNumberController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(
+                              MainApp.widthCal(8),
+                            ),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36), top: MainApp.heightCal(20)),
                   child: Row(
                     children: [
                       Text(
                         "Password",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: MainApp.widthCal(14),
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 36,
-                    right: 36,
-                    top: 2,
+                  padding: EdgeInsets.only(
+                    left: MainApp.widthCal(36),
+                    right: MainApp.widthCal(36),
+                    top: MainApp.heightCal(2),
                   ),
                   child: Container(
                     child: TextField(
                       controller: _passwordController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(
+                              MainApp.widthCal(8),
+                            ),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36), top: MainApp.heightCal(20)),
                   child: Row(
                     children: [
                       Text(
                         "Confirm Password",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: MainApp.widthCal(14),
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(36),
+                      right: MainApp.widthCal(36),
+                      top: MainApp.heightCal(2)),
                   child: Container(
                     child: TextField(
                       controller: _confirmPasswordController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(
+                              MainApp.widthCal(8),
+                            ),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 54, right: 54, top: 30, bottom: 30),
+                  padding: EdgeInsets.only(
+                      left: MainApp.widthCal(54),
+                      right: MainApp.widthCal(54),
+                      top: MainApp.heightCal(30),
+                      bottom: MainApp.heightCal(30)),
                   child: GestureDetector(
                     onTap: () async {
                       if (_emailController.text.isNotEmpty &&
@@ -399,17 +437,20 @@ class _MyappState extends State<Myapp1> {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius:
+                            BorderRadius.circular(MainApp.widthCal(10)),
                         color: Colors.black,
                       ),
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(
+                            MainApp.widthCal(8),
+                          ),
                           child: Text(
                             "Update",
                             style: GoogleFonts.poppins(
                                 color: Colors.white,
-                                fontSize: 15,
+                                fontSize: MainApp.widthCal(15),
                                 fontWeight: FontWeight.w700),
                           ),
                         ),

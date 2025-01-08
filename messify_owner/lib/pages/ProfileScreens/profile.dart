@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
 import 'package:messify_owner/pages/ProfileScreens/editProfileScreen.dart';
-import 'package:messify_owner/pages/CredentialPages/Registrationscreen.dart';
 import 'package:messify_owner/pages/SubscriptionScreens/subscribedMembers.dart';
 
 void main() {
@@ -43,47 +42,50 @@ class _MessifyState extends State<Messify> {
       ),
       builder: (BuildContext context) {
         return Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(
+            MainApp.widthCal(16),
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 "Create Notification",
                 style: GoogleFonts.poppins(
-                  fontSize: 20,
+                  fontSize: MainApp.widthCal(20),
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: MainApp.heightCal(10)),
               TextField(
                 controller: titleController,
                 decoration: InputDecoration(
                   labelText: "Title",
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(MainApp.widthCal(10)),
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: MainApp.heightCal(10)),
               TextField(
                 controller: descriptionController,
                 decoration: InputDecoration(
                   labelText: "Description",
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(MainApp.widthCal(10)),
                   ),
                 ),
                 maxLines: 3,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: MainApp.heightCal(20)),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(MainApp.widthCal(10)),
                   ),
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  padding: EdgeInsets.symmetric(
+                      vertical: MainApp.heightCal(10),
+                      horizontal: MainApp.heightCal(20)),
                 ),
                 onPressed: () {
                   DateTime now = DateTime.now();
@@ -112,14 +114,13 @@ class _MessifyState extends State<Messify> {
                                 Icons.notifications_active,
                                 color: Colors.white,
                               ),
-                              const SizedBox(width: 10),
+                              SizedBox(width: MainApp.widthCal(10)),
                               Expanded(
                                 child: Text(
                                   "Notification \"$title\" submitted successfully!",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: MainApp.widthCal(16)),
                                 ),
                               ),
                             ],
@@ -134,9 +135,10 @@ class _MessifyState extends State<Messify> {
                     );
                   }
                 },
-                child: const Text(
+                child: Text(
                   "Submit",
-                  style: TextStyle(color: Colors.black, fontSize: 20),
+                  style: TextStyle(
+                      color: Colors.black, fontSize: MainApp.widthCal(20)),
                 ),
               ),
             ],
@@ -157,10 +159,8 @@ class _MessifyState extends State<Messify> {
         onPressed: () {
           showNotificationBottomSheet(context);
         },
-        child: const Icon(
-          Icons.notification_add_outlined,
-          size: 30,
-        ),
+        child:
+            Icon(Icons.notification_add_outlined, size: MainApp.widthCal(20)),
         backgroundColor: Colors.orange,
       ),
       /*appBar: AppBar(
@@ -194,7 +194,7 @@ class _MessifyState extends State<Messify> {
             //  mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                height: 200,
+                height: MainApp.heightCal(200),
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -210,7 +210,7 @@ class _MessifyState extends State<Messify> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 150,
+                      height: MainApp.heightCal(150),
                       decoration: const BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -223,10 +223,10 @@ class _MessifyState extends State<Messify> {
                       ),
                     ),
                     Positioned(
-                      bottom: 0,
+                      bottom: MainApp.heightCal(0),
                       child: Container(
-                        height: 122,
-                        width: 122,
+                        height: MainApp.heightCal(122),
+                        width: MainApp.widthCal(122),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             border: Border.all(color: Colors.white, width: 5),
@@ -242,7 +242,7 @@ class _MessifyState extends State<Messify> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(MainApp.widthCal(8)),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.of(context)
@@ -251,36 +251,37 @@ class _MessifyState extends State<Messify> {
                     }));
                   },
                   child: Container(
-                    height: 30,
-                    width: 150,
+                    height: MainApp.heightCal(30),
+                    width: MainApp.widthCal(150),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
+                        borderRadius:
+                            BorderRadius.circular(MainApp.widthCal(5)),
                         color: Colors.black),
                     child: Center(
                         child: Text(
                       "Edit Profile",
                       style: GoogleFonts.poppins(
                           color: Colors.white,
-                          fontSize: 12,
+                          fontSize: MainApp.widthCal(12),
                           fontWeight: FontWeight.w500),
                     )),
                   ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: MainApp.heightCal(20)),
                 child: Row(
                   children: [
                     Container(
                         width: MediaQuery.of(context).size.width,
                         color: Color.fromRGBO(246, 246, 246, 1),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 26),
+                          padding: EdgeInsets.only(left: MainApp.widthCal(26)),
                           child: Text(
                             "Profile",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 12,
+                                fontSize: MainApp.widthCal(12),
                                 fontWeight: FontWeight.w600),
                           ),
                         )),
@@ -288,7 +289,7 @@ class _MessifyState extends State<Messify> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: EdgeInsets.only(top: MainApp.heightCal(10)),
                 child: GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -302,23 +303,23 @@ class _MessifyState extends State<Messify> {
                         //width: MediaQuery.of(context).size.width,
                         //color: Color.fromRGBO(246, 246, 246, 1),
                         child: Padding(
-                          padding: const EdgeInsets.only(left: 26),
+                          padding: EdgeInsets.only(left: MainApp.widthCal(26)),
                           child: Text(
                             "Subscribed Users",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 15,
+                                fontSize: MainApp.widthCal(15),
                                 fontWeight: FontWeight.w600),
                           ),
                         ),
                       ),
                       Spacer(),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(MainApp.widthCal(8)),
                         child: Icon(
                           Icons.arrow_forward_ios_rounded,
                           color: Colors.black,
-                          size: 15,
+                          size: MainApp.widthCal(15),
                         ),
                       ),
                     ],
@@ -326,30 +327,30 @@ class _MessifyState extends State<Messify> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: EdgeInsets.only(top: MainApp.heightCal(10)),
                 child: Row(
                   children: [
                     Container(
                       //width: MediaQuery.of(context).size.width,
                       //color: Color.fromRGBO(246, 246, 246, 1),
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 26),
+                        padding: EdgeInsets.only(left: MainApp.widthCal(26)),
                         child: Text(
                           "About Us",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              fontSize: 15,
+                              fontSize: MainApp.widthCal(15),
                               fontWeight: FontWeight.w600),
                         ),
                       ),
                     ),
                     Spacer(),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(MainApp.widthCal(8)),
                       child: Icon(
                         Icons.arrow_forward_ios_rounded,
                         color: Colors.black,
-                        size: 15,
+                        size: MainApp.widthCal(15),
                       ),
                     ),
                   ],
@@ -547,8 +548,9 @@ class _MessifyState extends State<Messify> {
               )*/
 
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0, vertical: 20.0),
+                padding: EdgeInsets.symmetric(
+                    horizontal: MainApp.widthCal(20),
+                    vertical: MainApp.heightCal(20)),
                 child: ElevatedButton.icon(
                   onPressed: () {
                     // Add your logout functionality here
@@ -584,14 +586,14 @@ class _MessifyState extends State<Messify> {
                     'Logout',
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w600,
-                        fontSize: 16,
+                        fontSize: MainApp.widthCal(16),
                         color: Colors.white),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.redAccent,
-                    minimumSize: Size(double.infinity, 50),
+                    minimumSize: Size(double.infinity, MainApp.widthCal(50)),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
                     ),
                   ),
                 ),

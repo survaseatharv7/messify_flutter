@@ -14,7 +14,6 @@ class FirstOnboardingScreen extends StatelessWidget {
           padding: EdgeInsets.only(top: MainApp.heightCal(60)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: MainApp.widthCal(20)),
@@ -26,7 +25,7 @@ class FirstOnboardingScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                         color: const Color.fromRGBO(255, 121, 46, 1),
-                        fontSize: 25,
+                        fontSize: MainApp.widthCal(25),
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -36,7 +35,7 @@ class FirstOnboardingScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: GoogleFonts.averiaLibre(
                         color: Colors.black87,
-                        fontSize: 20,
+                        fontSize: MainApp.widthCal(20),
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -85,11 +84,11 @@ class FirstOnboardingScreen extends StatelessWidget {
                   width: MainApp.widthCal(450),
                   alignment: Alignment.center,
                   color: const Color.fromRGBO(255, 121, 46, 1),
-                  child: const Text(
+                  child: Text(
                     "Next",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 24,
+                        fontSize: MainApp.widthCal(25),
                         fontWeight: FontWeight.bold),
                   ),
                 ),

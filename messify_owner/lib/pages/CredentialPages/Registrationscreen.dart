@@ -100,7 +100,7 @@ class _RegistrationState extends State<Registration> {
                           child: vegType
                               ? Icon(
                                   Icons.done,
-                                  size: 20,
+                                  size: MainApp.widthCal(20),
                                 )
                               : null,
                         ),
@@ -124,7 +124,7 @@ class _RegistrationState extends State<Registration> {
                           child: nonvegType
                               ? Icon(
                                   Icons.done,
-                                  size: 20,
+                                  size: MainApp.widthCal(20),
                                 )
                               : null,
                         ),
@@ -148,7 +148,7 @@ class _RegistrationState extends State<Registration> {
                           child: tiffinType
                               ? Icon(
                                   Icons.done,
-                                  size: 20,
+                                  size: MainApp.widthCal(20),
                                 )
                               : null,
                         ),
