@@ -63,20 +63,20 @@ class __LunchDinnerState extends State<LunchDinner> {
           title: Text(
             "Today's Menu",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                color: Colors.black, fontSize:MainApp.widthCal(20), fontWeight: FontWeight.w500),
           ),
         ),
         body: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(20),
+              padding:  EdgeInsets.all(MainApp.widthCal(20)),
               child: Row(
                 children: [
                   Text(
                     "Thali",
                     style: GoogleFonts.poppins(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: MainApp.widthCal(20),
                         fontWeight: FontWeight.w500),
                   ),
                   Spacer(),
@@ -85,13 +85,13 @@ class __LunchDinnerState extends State<LunchDinner> {
                       bottomSheetThali();
                     },
                     child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
+                      height: MainApp.heightCal(40),
+                      width: MainApp.widthCal(40),
+                      decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Colors.orange),
                       child: Icon(
                         Icons.add,
-                        size: 30,
+                        size: MainApp.widthCal(30),
                         color: Colors.white,
                       ),
                     ),
@@ -132,10 +132,10 @@ class __LunchDinnerState extends State<LunchDinner> {
                         ],
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding:  EdgeInsets.all(MainApp.widthCal(8)),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                             color: Colors.orange,
                           ),
                           child: Row(
@@ -146,14 +146,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(MainApp.widthCal(10)),
                                     ),
                                     child: Image.asset(
                                       "assets/thali.png",
                                       fit: BoxFit.cover,
                                     ),
-                                    height: 100,
-                                    width: 100,
+                                    height: MainApp.heightCal(100),
+                                    width: MainApp.widthCal(100),
                                   ),
                                   SizedBox(height: MainApp.heightCal(10)),
                                   Text(widget.isLunchSelected
@@ -165,8 +165,8 @@ class __LunchDinnerState extends State<LunchDinner> {
                               // Content Section
                               Expanded(
                                 child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10.0, vertical: 5.0),
+                                  padding:  EdgeInsets.symmetric(
+                                      horizontal: MainApp.widthCal(10), vertical: MainApp.heightCal(5)),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -179,17 +179,17 @@ class __LunchDinnerState extends State<LunchDinner> {
                                               : "Dinner",
                                           style: GoogleFonts.poppins(
                                             color: Colors.white,
-                                            fontSize: 16,
+                                            fontSize: MainApp.widthCal(16),
                                             fontWeight: FontWeight.w500,
                                           ),
                                           textAlign: TextAlign.center,
                                         ),
                                       ),
 
-                                      const Divider(
+                                     Divider(
                                         color: Colors.white54,
                                         thickness: 0.5,
-                                        height: 10,
+                                        height: MainApp.heightCal(10),
                                       ),
 
                                       // Sabji 1 and Sabji 2
@@ -204,7 +204,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                                   : "1: ${dinnerList[index]['sabji1']}",
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: MainApp.widthCal(12),
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -216,7 +216,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                                   : "2. ${dinnerList[index]['sabji2']}",
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: MainApp.widthCal(12),
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -224,7 +224,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                         ],
                                       ),
 
-                                      const SizedBox(height: 5),
+                                       SizedBox(height: MainApp.heightCal(5)),
 
                                       // Sweet and Chapati
                                       Row(
@@ -238,7 +238,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                                   : "Sweet: ${dinnerList[index]['sweet']}",
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: MainApp.widthCal(12),
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -250,7 +250,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                                   : "${dinnerList[index]['chapati']}: ${dinnerList[index]['count']}",
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: MainApp.widthCal(12),
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -258,7 +258,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                         ],
                                       ),
 
-                                      const SizedBox(height: 5),
+                                       SizedBox(height: MainApp.heightCal(5)),
 
                                       // Rice and Dal
                                       Row(
@@ -272,7 +272,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                                   : "Rice: ${dinnerList[index]['rice']}",
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: MainApp.widthCal(12),
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -284,7 +284,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                                                   : "Dal: ${dinnerList[index]['dal']}",
                                               style: GoogleFonts.poppins(
                                                 color: Colors.white,
-                                                fontSize: 12,
+                                                fontSize: MainApp.widthCal(12),
                                                 fontWeight: FontWeight.w400,
                                               ),
                                             ),
@@ -456,24 +456,24 @@ class __LunchDinnerState extends State<LunchDinner> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding:  EdgeInsets.all(MainApp.widthCal(8)),
                       child: Text(
                         "Add Thali Menu Here",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: MainApp.widthCal(20),
                             fontWeight: FontWeight.w500),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Sabji One Name",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -481,15 +481,15 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: sabji1Controller,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide:const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -497,14 +497,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Sabji Two Name",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -512,15 +512,15 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: sabji2Controller,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -528,14 +528,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Sweet Name",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -543,15 +543,15 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: sweetController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide:const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -559,14 +559,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Chapati/Bhakri",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -574,15 +574,15 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: chapatiBhakriController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide:const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -590,14 +590,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 15, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Chapati/Bhakari Count",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -605,7 +605,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
@@ -614,7 +614,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                               decimal: true),
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                             borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
@@ -623,14 +623,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Rice",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -638,15 +638,15 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: riceController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide:const  BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -654,14 +654,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 10, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Dal",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -669,15 +669,15 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: dalController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: BorderSide(
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -685,14 +685,14 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 15, left: 20),
+                      padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
                             "Price",
                             style: GoogleFonts.poppins(
                                 color: Colors.black,
-                                fontSize: 16,
+                                fontSize: MainApp.widthCal(16),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -700,7 +700,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 5, left: 20, right: 20),
+                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
@@ -709,7 +709,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                               decimal: true),
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                             borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
@@ -718,7 +718,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(40),
+                      padding:  EdgeInsets.all(MainApp.widthCal(40)),
                       child: GestureDetector(
                         onTap: () {
                           submit(isedit: false);
@@ -731,16 +731,16 @@ class __LunchDinnerState extends State<LunchDinner> {
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
+                              borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
                               color: Colors.orange),
                           child: Padding(
-                            padding: const EdgeInsets.all(15),
+                            padding:  EdgeInsets.all(MainApp.widthCal(15)),
                             child: Center(
                               child: Text(
                                 "Submit",
                                 style: GoogleFonts.poppins(
                                     color: Colors.black,
-                                    fontSize: 16,
+                                    fontSize: MainApp.widthCal(16),
                                     fontWeight: FontWeight.w500),
                               ),
                             ),

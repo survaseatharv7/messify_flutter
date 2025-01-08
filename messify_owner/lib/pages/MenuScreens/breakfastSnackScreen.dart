@@ -103,7 +103,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                 ? "Add or Edit Snacks"
                 : "Add or Edit Non-Veg Menus",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+                color: Colors.black, fontSize: MainApp.widthCal(20), fontWeight: FontWeight.w500),
           ),
         ),
         body: ListView.builder(
@@ -144,15 +144,15 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding:  EdgeInsets.all(MainApp.widthCal(8)),
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                       color: Colors.orange,
                     ),
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding:  EdgeInsets.all(MainApp.widthCal(8)),
                       child: Row(
                         children: [
                           Text(
@@ -161,7 +161,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                                 : "${index + 1}.${nonvegList[index]['item']}",
                             style: GoogleFonts.poppins(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: MainApp.widthCal(20),
                                 fontWeight: FontWeight.w500),
                           ),
                           const Spacer(),
@@ -171,7 +171,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                                 : "${nonvegList[index]['price']}",
                             style: GoogleFonts.poppins(
                                 color: Colors.white,
-                                fontSize: 20,
+                                fontSize: MainApp.widthCal(20),
                                 fontWeight: FontWeight.w500),
                           ),
                         ],
@@ -183,9 +183,9 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
             }),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.orange,
-          child: const Icon(
+          child:  Icon(
             Icons.add,
-            size: 50,
+            size: MainApp.widthCal(50),
             color: Colors.white,
           ),
           onPressed: () {
@@ -198,7 +198,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
 
   Widget template(int index, String) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding:  EdgeInsets.all(MainApp.widthCal(8)),
       child: Container(
         width: MediaQuery.of(context).size.width,
         color: Colors.orange,
@@ -208,7 +208,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
               "",
               style: GoogleFonts.poppins(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: MainApp.widthCal(20),
                   fontWeight: FontWeight.w500),
             ),
             Spacer(),
@@ -216,7 +216,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
               "",
               style: GoogleFonts.poppins(
                   color: Colors.black,
-                  fontSize: 20,
+                  fontSize: MainApp.widthCal(20),
                   fontWeight: FontWeight.w500),
             ),
           ],
@@ -284,70 +284,38 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:  EdgeInsets.all(MainApp.widthCal(8)),
                     child: Text(
                       "Add New Menu Here",
                       style: GoogleFonts.poppins(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: MainApp.widthCal(20),
                           fontWeight: FontWeight.w500),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(30), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
                           "Item Name",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: MainApp.widthCal(16),
                               fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: itemController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
-                            color: Colors.orange,
-                          ),
-                        )),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 20),
-                    child: Row(
-                      children: [
-                        Text(
-                          "Price",
-                          style: GoogleFonts.poppins(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      child: TextField(
-                        controller: priceController,
-                        keyboardType: const TextInputType.numberWithOptions(
-                            decimal: true),
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -356,7 +324,39 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(40),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                    child: Row(
+                      children: [
+                        Text(
+                          "Price",
+                          style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: MainApp.widthCal(16),
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: TextField(
+                        controller: priceController,
+                        keyboardType: const TextInputType.numberWithOptions(
+                            decimal: true),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderSide: const BorderSide(
+                            color: Colors.orange,
+                          ),
+                        )),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:  EdgeInsets.all(MainApp.widthCal(40)),
                     child: GestureDetector(
                       onTap: () {
                         if (!isEdit)
@@ -370,16 +370,16 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
                             color: Colors.orange),
                         child: Padding(
-                          padding: const EdgeInsets.all(15),
+                          padding:  EdgeInsets.all(MainApp.widthCal(15)),
                           child: Center(
                             child: Text(
                               "Submit",
                               style: GoogleFonts.poppins(
                                   color: Colors.black,
-                                  fontSize: 16,
+                                  fontSize: MainApp.widthCal(16),
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
