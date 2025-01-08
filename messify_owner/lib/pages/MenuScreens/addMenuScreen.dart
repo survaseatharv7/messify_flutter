@@ -24,28 +24,28 @@ class _OwnerUIState extends State<OwnerUI> {
           title: Text(
             "What's New Today?",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w600),
+                color: Colors.black, fontSize: MainApp.widthCal(20), fontWeight: FontWeight.w600),
           ),
-          leading: Icon(Icons.more_horiz),
+          leading: const Icon(Icons.more_horiz),
         ),
         body: ListView(children: [
           Padding(
-            padding: const EdgeInsets.all(8),
+            padding:  EdgeInsets.all(MainApp.widthCal(8)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20),
+                  padding:  EdgeInsets.only(top: MainApp.heightCal(20), left: MainApp.widthCal(20)),
                   child: Text(
                     "Your Today's Meal",
                     style: GoogleFonts.poppins(
                         color: Colors.black,
-                        fontSize: 18,
+                        fontSize: MainApp.widthCal(18),
                         fontWeight: FontWeight.w500),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  padding:  EdgeInsets.only(left: MainApp.widthCal(10), top: MainApp.heightCal(10)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -59,11 +59,11 @@ class _OwnerUIState extends State<OwnerUI> {
                           }));
                         },
                         child: Container(
-                          height: 175,
-                          width: 175,
+                          height: MainApp.heightCal(175),
+                          width:MainApp.widthCal(175),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromRGBO(233, 237, 248, 1),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                            color: const Color.fromRGBO(233, 237, 248, 1),
                           ),
                           child: Stack(
                             children: [
@@ -71,15 +71,15 @@ class _OwnerUIState extends State<OwnerUI> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    const Icon(
+                                     Icon(
                                       Icons.sunny_snowing,
-                                      size: 50,
+                                      size: MainApp.widthCal(50),
                                     ),
                                     Text(
                                       "Snack",
                                       style: GoogleFonts.poppins(
                                           color: Colors.black,
-                                          fontSize: 20,
+                                          fontSize: MainApp.widthCal(20),
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -100,11 +100,11 @@ class _OwnerUIState extends State<OwnerUI> {
                           );
                         },
                         child: Container(
-                          height: 175,
-                          width: 175,
+                          height: MainApp.widthCal(175),
+                          width: MainApp.widthCal(175),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromRGBO(233, 237, 248, 1),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                            color:const Color.fromRGBO(233, 237, 248, 1),
                           ),
                           child: Stack(
                             children: [
@@ -114,13 +114,13 @@ class _OwnerUIState extends State<OwnerUI> {
                                   children: [
                                     Icon(
                                       Icons.wb_sunny_outlined,
-                                      size: 50,
+                                      size:MainApp.widthCal(50),
                                     ),
                                     Text(
                                       "Lunch",
                                       style: GoogleFonts.poppins(
                                           color: Colors.black,
-                                          fontSize: 20,
+                                          fontSize: MainApp.widthCal(20),
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -134,7 +134,7 @@ class _OwnerUIState extends State<OwnerUI> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 10, top: 10),
+                  padding:  EdgeInsets.only(left: MainApp.widthCal(10), top: MainApp.heightCal(10)),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -149,11 +149,11 @@ class _OwnerUIState extends State<OwnerUI> {
                           );
                         },
                         child: Container(
-                          height: 175,
-                          width: 175,
+                          height: MainApp.heightCal(175),
+                          width: MainApp.widthCal(175),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromRGBO(233, 237, 248, 1),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                            color:const Color.fromRGBO(233, 237, 248, 1),
                           ),
                           child: Stack(
                             children: [
@@ -163,13 +163,13 @@ class _OwnerUIState extends State<OwnerUI> {
                                   children: [
                                     Icon(
                                       Icons.sunny_snowing,
-                                      size: 50,
+                                      size:MainApp.widthCal(50),
                                     ),
                                     Text(
                                       "NonVeg",
                                       style: GoogleFonts.poppins(
                                           color: Colors.black,
-                                          fontSize: 20,
+                                          fontSize: MainApp.widthCal(20),
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -190,11 +190,11 @@ class _OwnerUIState extends State<OwnerUI> {
                           );
                         },
                         child: Container(
-                          height: 175,
-                          width: 175,
+                          height: MainApp.heightCal(175),
+                          width: MainApp.widthCal(175),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: Color.fromRGBO(233, 237, 248, 1),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                            color:const  Color.fromRGBO(233, 237, 248, 1),
                           ),
                           child: Stack(
                             children: [
@@ -204,13 +204,13 @@ class _OwnerUIState extends State<OwnerUI> {
                                   children: [
                                     Icon(
                                       Icons.mode_night_outlined,
-                                      size: 50,
+                                      size: MainApp.widthCal(50),
                                     ),
                                     Text(
                                       "Dinner",
                                       style: GoogleFonts.poppins(
                                           color: Colors.black,
-                                          fontSize: 20,
+                                          fontSize: MainApp.widthCal(20),
                                           fontWeight: FontWeight.w500),
                                     ),
                                   ],
@@ -232,9 +232,9 @@ class _OwnerUIState extends State<OwnerUI> {
             bottomSheetOpener();
             setState(() {});
           },
-          child: const Icon(
+          child:  Icon(
             Icons.poll_outlined,
-            size: 30,
+            size: MainApp.widthCal(30),
           ),
           backgroundColor: Colors.orange,
         ),
@@ -266,34 +266,34 @@ class _OwnerUIState extends State<OwnerUI> {
                       "Add Your Poll Here",
                       style: GoogleFonts.poppins(
                           color: Colors.black,
-                          fontSize: 20,
+                          fontSize: MainApp.widthCal(20),
                           fontWeight: FontWeight.w500),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 30, left: 20),
+                    padding:  EdgeInsets.only(top: MainApp.widthCal(30), left: MainApp.widthCal(30)),
                     child: Row(
                       children: [
                         Text(
                           "Question",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: MainApp.widthCal(16),
                               fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _questionController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
-                          borderSide: BorderSide(
+                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
                         )),
@@ -301,28 +301,28 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
                           "Option 1",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: MainApp.widthCal(16),
                               fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _option1Controller,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -331,28 +331,28 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
                           "Option 2",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: MainApp.widthCal(16),
                               fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _option2Controller,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -361,28 +361,28 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 15, left: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
                           "Option 3",
                           style: GoogleFonts.poppins(
                               color: Colors.black,
-                              fontSize: 16,
+                              fontSize: MainApp.widthCal(16),
                               fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 5, left: 20, right: 20),
+                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _option3Controller,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -391,7 +391,7 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(40),
+                    padding:  EdgeInsets.all(MainApp.widthCal(40)),
                     child: GestureDetector(
                       onTap: () async {
                         if (_questionController.text.trim().isNotEmpty &&
@@ -445,16 +445,16 @@ class _OwnerUIState extends State<OwnerUI> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
                             color: Colors.orange),
                         child: Padding(
-                          padding: const EdgeInsets.all(15),
+                          padding:  EdgeInsets.all(MainApp.widthCal(15)),
                           child: Center(
                             child: Text(
                               "Post",
                               style: GoogleFonts.poppins(
                                   color: Colors.black,
-                                  fontSize: 16,
+                                  fontSize: MainApp.widthCal(16),
                                   fontWeight: FontWeight.w500),
                             ),
                           ),
