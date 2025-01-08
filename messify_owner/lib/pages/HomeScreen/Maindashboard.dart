@@ -196,7 +196,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.poppins(
                     color: Colors.white,
-                    fontSize: 30,
+                    fontSize: MainApp.widthCal(30),
                     fontWeight: FontWeight.w700),
               ),
               Spacer(),
@@ -215,15 +215,21 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(
+                MainApp.widthCal(8),
+              ),
               child: Container(
                 height: MainApp.heightCal(250),
                 width: MainApp.widthCal(500),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(
+                    MainApp.widthCal(20),
+                  ),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(
+                    MainApp.widthCal(20),
+                  ),
                   child: Image.asset(
                     "assets/mess1.jpeg",
                     fit: BoxFit.cover,
@@ -241,17 +247,21 @@ class _DashboardPageState extends State<DashboardPage> {
           Container(
             height: MainApp.heightCal(800),
             width: MainApp.widthCal(500),
-            decoration: const BoxDecoration(
-                boxShadow: [
+            decoration: BoxDecoration(
+                boxShadow: const [
                   BoxShadow(
                       color: Colors.grey,
                       blurRadius: 10.0,
                       offset: Offset(0, -2))
                 ],
                 color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(15))),
+                borderRadius: BorderRadius.all(Radius.circular(
+                  MainApp.widthCal(15),
+                ))),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(
+                MainApp.widthCal(16),
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -261,18 +271,18 @@ class _DashboardPageState extends State<DashboardPage> {
                         Text(
                           "Poll Results for ${pollDetails['question']}",
                           style: GoogleFonts.poppins(
-                            fontSize: 20,
+                            fontSize: MainApp.widthCal(20),
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
                           ),
                         ),
                         SizedBox(height: MainApp.heightCal(20)),
                         SizedBox(
-                          height: 200,
+                          height: MainApp.heightCal(200),
                           child: BarChart(
                             BarChartData(
                               alignment: BarChartAlignment.spaceAround,
-                              maxY: 20,
+                              maxY: MainApp.heightCal(20),
                               barGroups: [
                                 BarChartGroupData(
                                   x: 0,
@@ -281,7 +291,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       toY: (options[0]['votes'] as num)
                                           .toDouble(),
                                       color: Colors.orange,
-                                      width: 20,
+                                      width: MainApp.widthCal(20),
                                     ),
                                   ],
                                 ),
@@ -292,7 +302,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       toY: (options[1]['votes'] as num)
                                           .toDouble(),
                                       color: Colors.blue,
-                                      width: 20,
+                                      width: MainApp.widthCal(20),
                                     ),
                                   ],
                                 ),
@@ -303,7 +313,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       toY: (options[2]['votes'] as num)
                                           .toDouble(),
                                       color: Colors.green,
-                                      width: 20,
+                                      width: MainApp.widthCal(20),
                                     ),
                                   ],
                                 ),
@@ -336,13 +346,14 @@ class _DashboardPageState extends State<DashboardPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: MainApp.heightCal(20),
                         ),
                         Text(
                           "Interested Users: $documentCount",
                           style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                              fontSize: MainApp.widthCal(20),
+                              fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -352,7 +363,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   Text(
                     "Feedback",
                     style: GoogleFonts.poppins(
-                      fontSize: 20,
+                      fontSize: MainApp.widthCal(20),
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
@@ -364,11 +375,14 @@ class _DashboardPageState extends State<DashboardPage> {
                       itemBuilder: (context, index) {
                         dynamic review = listOfReviews[index];
                         return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: EdgeInsets.symmetric(
+                              vertical: MainApp.heightCal(8)),
                           child: Container(
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(
+                                MainApp.widthCal(10),
+                              ),
                               boxShadow: const [
                                 BoxShadow(
                                   color: Colors.grey,
@@ -377,7 +391,9 @@ class _DashboardPageState extends State<DashboardPage> {
                                 ),
                               ],
                             ),
-                            padding: const EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(
+                              MainApp.widthCal(16),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -385,11 +401,11 @@ class _DashboardPageState extends State<DashboardPage> {
                                   "${review['Name']}",
                                   style: GoogleFonts.poppins(
                                     color: Colors.black,
-                                    fontSize: 18,
+                                    fontSize: MainApp.widthCal(18),
                                     fontWeight: FontWeight.w600,
                                   ),
                                 ),
-                                SizedBox(height: 8),
+                                SizedBox(height: MainApp.heightCal(8)),
                                 Row(
                                   children: List.generate(5, (starIndex) {
                                     return Icon(
@@ -401,21 +417,21 @@ class _DashboardPageState extends State<DashboardPage> {
                                     );
                                   }),
                                 ),
-                                SizedBox(height: 10),
+                                SizedBox(height: MainApp.heightCal(10)),
                                 Text(
                                   review['review'],
                                   style: GoogleFonts.poppins(
                                     color: Colors.black,
-                                    fontSize: 16,
+                                    fontSize: MainApp.widthCal(16),
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                SizedBox(height: MainApp.heightCal(10)),
                                 Text(
                                   "Posted on: ${review['date']}",
                                   style: GoogleFonts.poppins(
                                     color: Colors.grey,
-                                    fontSize: 14,
+                                    fontSize: MainApp.widthCal(14),
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),

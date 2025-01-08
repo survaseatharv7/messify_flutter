@@ -6,6 +6,7 @@ import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/HomeScreen/Maindashboard.dart';
 import 'package:messify_owner/pages/CredentialPages/Registrationscreen.dart';
 
+// ignore: must_be_immutable
 class Loginscreen extends StatelessWidget {
   Loginscreen({super.key});
 
@@ -18,18 +19,19 @@ class Loginscreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Login Screen",
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+          style: TextStyle(
+              fontSize: MainApp.widthCal(20), fontWeight: FontWeight.w600),
         ),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
           padding: EdgeInsets.only(
-              left: 15,
-              right: 15,
-              top: 15,
+              left: MainApp.widthCal(15),
+              right: MainApp.widthCal(15),
+              top: MainApp.heightCal(15),
               bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,11 +138,11 @@ class Loginscreen extends StatelessWidget {
                   width: MainApp.widthCal(400),
                   alignment: Alignment.center,
                   color: const Color.fromARGB(255, 2, 25, 44),
-                  child: const Text(
+                  child: Text(
                     "Login",
                     style: TextStyle(
                         color: Colors.yellow,
-                        fontSize: 18,
+                        fontSize: MainApp.widthCal(18),
                         fontWeight: FontWeight.bold),
                   ),
                 ),
