@@ -11,13 +11,13 @@ class FirstOnboardingScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.only(top: 60),
+          padding: EdgeInsets.only(top: MainApp.heightCal(60)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: EdgeInsets.symmetric(horizontal: MainApp.widthCal(20)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

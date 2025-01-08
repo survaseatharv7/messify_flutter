@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
@@ -20,26 +22,29 @@ void main() async {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-  static double width = 0;
-  static double heigth = 0;
   static String messName = '';
 
-  static widthCal(double width) {
-    double ans = width / MainApp.width;
-    return ans * MainApp.width;
+  static double screenWidth = 0;
+  static double screenHeight = 0;
+
+  static const double referenceWidth = 411.42;
+  static const double referenceHeight = 890.28;
+
+  static double widthCal(double width) {
+    return (width / referenceWidth) * screenWidth;
   }
 
-  static heightCal(double height) {
-    double ans = height / MainApp.heigth;
-    return ans * MainApp.heigth;
+  static double heightCal(double height) {
+    return (height / referenceHeight) * screenHeight;
   }
 
   static bool isLoggedIn = false;
 
   @override
   Widget build(BuildContext context) {
-    width = MediaQuery.of(context).size.width;
-    heigth = MediaQuery.of(context).size.height;
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
+
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: FirstOnboardingScreen(),
