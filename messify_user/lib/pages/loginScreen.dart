@@ -6,6 +6,7 @@ import 'package:messify/pages/MainDashboard.dart';
 import 'package:messify/pages/Registration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messify/pages/sessionData.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import shared preferences
 
 class Loginscreen extends StatefulWidget {
   Loginscreen({super.key});
@@ -20,10 +21,16 @@ class _LoginscreenState extends State<Loginscreen> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  List<UserModel> userList = [];
-
-  // For toggling password visibility
   bool _isPasswordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Check if the user is already logged in when the screen is initialized
+  }
+
+  // Method to check if the user is already logged in
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -51,18 +58,14 @@ class _LoginscreenState extends State<Loginscreen> {
                 child:
                     Image.asset("assets/loginfinal.png", fit: BoxFit.contain),
               ),
-              SizedBox(
-                height: MainApp.heightCal(10),
-              ),
+              SizedBox(height: MainApp.heightCal(10)),
               Text(
                 "Welcome Back User!",
                 style: TextStyle(
                     fontSize: MainApp.widthCal(20),
                     fontWeight: FontWeight.w800),
               ),
-              SizedBox(
-                height: MainApp.heightCal(5),
-              ),
+              SizedBox(height: MainApp.heightCal(5)),
               Text(
                 "Please sign in to continue",
                 style: TextStyle(
@@ -70,32 +73,24 @@ class _LoginscreenState extends State<Loginscreen> {
                     fontWeight: FontWeight.bold,
                     color: Colors.grey),
               ),
-              SizedBox(
-                height: MainApp.heightCal(15),
-              ),
+              SizedBox(height: MainApp.heightCal(15)),
               TextField(
                 controller: _emailController,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.supervised_user_circle),
-                  label: const Text(
-                    "Enter Username",
-                  ),
+                  label: const Text("Enter Username"),
                   border: OutlineInputBorder(
                       borderRadius:
                           BorderRadius.circular(MainApp.widthCal(10))),
                 ),
               ),
-              SizedBox(
-                height: MainApp.heightCal(15),
-              ),
+              SizedBox(height: MainApp.heightCal(15)),
               TextField(
                 controller: _passwordController,
-                obscureText: !_isPasswordVisible, // Hide or show text
+                obscureText: !_isPasswordVisible,
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.password),
-                  label: const Text(
-                    "Enter Password",
-                  ),
+                  label: const Text("Enter Password"),
                   suffixIcon: IconButton(
                     icon: Icon(
                       _isPasswordVisible
@@ -113,9 +108,7 @@ class _LoginscreenState extends State<Loginscreen> {
                           BorderRadius.circular(MainApp.widthCal(10))),
                 ),
               ),
-              SizedBox(
-                height: MainApp.heightCal(20),
-              ),
+              SizedBox(height: MainApp.heightCal(20)),
               GestureDetector(
                 onTap: () async {
                   try {
@@ -125,24 +118,22 @@ class _LoginscreenState extends State<Loginscreen> {
                           await _firebaseAuth.signInWithEmailAndPassword(
                               email: _emailController.text,
                               password: _passwordController.text);
-                      MainApp.isLoggedIn = true;
 
+                      // Fetch user data from Firestore
                       QuerySnapshot response = await FirebaseFirestore.instance
                           .collection("Userinfo")
                           .get();
-                      userList.clear();
 
                       int index = 0;
-
                       for (int i = 0; i < response.docs.length; i++) {
-                        print("${response.docs[i]['Email']}");
                         if (_userCredential.user!.email ==
-                            "${response.docs[i]['Email']}") {
+                            response.docs[i]['Email']) {
                           index = i;
                           break;
                         }
                       }
 
+                      // Store the user data in session
                       MainApp.name = response.docs[index]['name'];
                       MainApp.username = response.docs[index]['username'];
 
@@ -151,11 +142,14 @@ class _LoginscreenState extends State<Loginscreen> {
                           username: MainApp.name,
                           userusername: MainApp.username);
 
-                      print("username" + MainApp.name);
-                      print("Session" + Sessiondata.usernameget!);
-                      print(
-                          "Session user username" + Sessiondata.userusername!);
+                      // Store login status in SharedPreferences
+                      final SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      prefs.setBool('isLoggedIn', true);
+                      prefs.setString('username', MainApp.name);
+                      prefs.setString('userusername', MainApp.username);
 
+                      // Navigate to dashboard
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
@@ -179,9 +173,7 @@ class _LoginscreenState extends State<Loginscreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: MainApp.heightCal(20),
-              ),
+              SizedBox(height: MainApp.heightCal(20)),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -192,9 +184,7 @@ class _LoginscreenState extends State<Loginscreen> {
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 95, 87, 87)),
                   ),
-                  SizedBox(
-                    width: MainApp.widthCal(5),
-                  ),
+                  SizedBox(width: MainApp.widthCal(5)),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
