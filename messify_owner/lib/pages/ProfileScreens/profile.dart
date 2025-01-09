@@ -163,35 +163,10 @@ class _MessifyState extends State<Messify> {
             Icon(Icons.notification_add_outlined, size: MainApp.widthCal(20)),
         backgroundColor: Colors.orange,
       ),
-      /*appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 141, 118, 1),
-        leading: Icon(
-          Icons.arrow_back_ios,
-          color: Colors.white,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.notifications_outlined,
-              color: Colors.white,
-              size: 30,
-            ),
-          ),
-        ],
-        title: Text(
-          "Profile",
-          style: GoogleFonts.poppins(
-              color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
-      ),*/
       body: Container(
-        //color: Colors.white,
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            //  mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
                 height: MainApp.heightCal(200),
