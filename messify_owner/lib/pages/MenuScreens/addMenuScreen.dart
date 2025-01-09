@@ -17,227 +17,233 @@ class OwnerUI extends StatefulWidget {
 class _OwnerUIState extends State<OwnerUI> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            "What's New Today?",
-            style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: MainApp.widthCal(20), fontWeight: FontWeight.w600),
-          ),
-          leading: const Icon(Icons.more_horiz),
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: Text(
+          "What's New Today?",
+          style: GoogleFonts.poppins(
+              color: Colors.black,
+              fontSize: MainApp.widthCal(20),
+              fontWeight: FontWeight.w600),
         ),
-        body: ListView(children: [
-          Padding(
-            padding:  EdgeInsets.all(MainApp.widthCal(8)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding:  EdgeInsets.only(top: MainApp.heightCal(20), left: MainApp.widthCal(20)),
-                  child: Text(
-                    "Your Today's Meal",
-                    style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: MainApp.widthCal(18),
-                        fontWeight: FontWeight.w500),
-                  ),
+      ),
+      body: ListView(children: [
+        Padding(
+          padding: EdgeInsets.all(MainApp.widthCal(8)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    top: MainApp.heightCal(20), left: MainApp.widthCal(20)),
+                child: Text(
+                  "Your Today's Meal",
+                  style: GoogleFonts.poppins(
+                      color: Colors.black,
+                      fontSize: MainApp.widthCal(18),
+                      fontWeight: FontWeight.w500),
                 ),
-                Padding(
-                  padding:  EdgeInsets.only(left: MainApp.widthCal(10), top: MainApp.heightCal(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            return Breakfastmenu(
-                              isSnackSelected: true,
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: MainApp.widthCal(10), top: MainApp.heightCal(10)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return Breakfastmenu(
+                            isSnackSelected: true,
+                          );
+                        }));
+                      },
+                      child: Container(
+                        height: MainApp.heightCal(175),
+                        width: MainApp.widthCal(175),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(20)),
+                          color: const Color.fromRGBO(233, 237, 248, 1),
+                        ),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.sunny_snowing,
+                                    size: MainApp.widthCal(50),
+                                  ),
+                                  Text(
+                                    "Snack",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: MainApp.widthCal(20),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return LunchDinner(
+                              isLunchSelected: true,
                             );
-                          }));
-                        },
-                        child: Container(
-                          height: MainApp.heightCal(175),
-                          width:MainApp.widthCal(175),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
-                            color: const Color.fromRGBO(233, 237, 248, 1),
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                     Icon(
-                                      Icons.sunny_snowing,
-                                      size: MainApp.widthCal(50),
-                                    ),
-                                    Text(
-                                      "Snack",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.black,
-                                          fontSize: MainApp.widthCal(20),
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                ),
+                          }),
+                        );
+                      },
+                      child: Container(
+                        height: MainApp.widthCal(175),
+                        width: MainApp.widthCal(175),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(20)),
+                          color: const Color.fromRGBO(233, 237, 248, 1),
+                        ),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.wb_sunny_outlined,
+                                    size: MainApp.widthCal(50),
+                                  ),
+                                  Text(
+                                    "Lunch",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: MainApp.widthCal(20),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              return LunchDinner(
-                                isLunchSelected: true,
-                              );
-                            }),
-                          );
-                        },
-                        child: Container(
-                          height: MainApp.widthCal(175),
-                          width: MainApp.widthCal(175),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
-                            color:const Color.fromRGBO(233, 237, 248, 1),
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.wb_sunny_outlined,
-                                      size:MainApp.widthCal(50),
-                                    ),
-                                    Text(
-                                      "Lunch",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.black,
-                                          fontSize: MainApp.widthCal(20),
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding:  EdgeInsets.only(left: MainApp.widthCal(10), top: MainApp.heightCal(10)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              return Breakfastmenu(
-                                isSnackSelected: false,
-                              );
-                            }),
-                          );
-                        },
-                        child: Container(
-                          height: MainApp.heightCal(175),
-                          width: MainApp.widthCal(175),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
-                            color:const Color.fromRGBO(233, 237, 248, 1),
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.sunny_snowing,
-                                      size:MainApp.widthCal(50),
-                                    ),
-                                    Text(
-                                      "NonVeg",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.black,
-                                          fontSize: MainApp.widthCal(20),
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: MainApp.widthCal(10), top: MainApp.heightCal(10)),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return Breakfastmenu(
+                              isSnackSelected: false,
+                            );
+                          }),
+                        );
+                      },
+                      child: Container(
+                        height: MainApp.heightCal(175),
+                        width: MainApp.widthCal(175),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(20)),
+                          color: const Color.fromRGBO(233, 237, 248, 1),
+                        ),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.sunny_snowing,
+                                    size: MainApp.widthCal(50),
+                                  ),
+                                  Text(
+                                    "NonVeg",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: MainApp.widthCal(20),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) {
-                              return LunchDinner(
-                                isLunchSelected: false,
-                              );
-                            }),
-                          );
-                        },
-                        child: Container(
-                          height: MainApp.heightCal(175),
-                          width: MainApp.widthCal(175),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
-                            color:const  Color.fromRGBO(233, 237, 248, 1),
-                          ),
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.mode_night_outlined,
-                                      size: MainApp.widthCal(50),
-                                    ),
-                                    Text(
-                                      "Dinner",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.black,
-                                          fontSize: MainApp.widthCal(20),
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ],
-                                ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return LunchDinner(
+                              isLunchSelected: false,
+                            );
+                          }),
+                        );
+                      },
+                      child: Container(
+                        height: MainApp.heightCal(175),
+                        width: MainApp.widthCal(175),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(20)),
+                          color: const Color.fromRGBO(233, 237, 248, 1),
+                        ),
+                        child: Stack(
+                          children: [
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.mode_night_outlined,
+                                    size: MainApp.widthCal(50),
+                                  ),
+                                  Text(
+                                    "Dinner",
+                                    style: GoogleFonts.poppins(
+                                        color: Colors.black,
+                                        fontSize: MainApp.widthCal(20),
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ]),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            bottomSheetOpener();
-            setState(() {});
-          },
-          child:  Icon(
-            Icons.poll_outlined,
-            size: MainApp.widthCal(30),
-          ),
-          backgroundColor: Colors.orange,
         ),
+      ]),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          bottomSheetOpener();
+          setState(() {});
+        },
+        child: Icon(
+          Icons.poll_outlined,
+          size: MainApp.widthCal(30),
+        ),
+        backgroundColor: Colors.orange,
       ),
     );
   }
@@ -271,7 +277,8 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.widthCal(30), left: MainApp.widthCal(30)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.widthCal(30), left: MainApp.widthCal(30)),
                     child: Row(
                       children: [
                         Text(
@@ -285,14 +292,18 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _questionController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -301,7 +312,8 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
@@ -315,14 +327,18 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _option1Controller,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -331,7 +347,8 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
@@ -345,14 +362,18 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _option2Controller,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -361,7 +382,8 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
@@ -375,14 +397,18 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: _option3Controller,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -391,7 +417,7 @@ class _OwnerUIState extends State<OwnerUI> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.all(MainApp.widthCal(40)),
+                    padding: EdgeInsets.all(MainApp.widthCal(40)),
                     child: GestureDetector(
                       onTap: () async {
                         if (_questionController.text.trim().isNotEmpty &&
@@ -445,10 +471,11 @@ class _OwnerUIState extends State<OwnerUI> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(20)),
                             color: Colors.orange),
                         child: Padding(
-                          padding:  EdgeInsets.all(MainApp.widthCal(15)),
+                          padding: EdgeInsets.all(MainApp.widthCal(15)),
                           child: Center(
                             child: Text(
                               "Post",

@@ -193,7 +193,7 @@ class _DashboardPageState extends State<DashboardPage> {
         stream: getInterestedUserCountStream(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }

@@ -29,10 +29,8 @@ class __LunchDinnerState extends State<LunchDinner> {
   TextEditingController dalController = TextEditingController();
 
   TextEditingController mainController = TextEditingController();
-  TextEditingController price1Controller = TextEditingController();
 
   TextEditingController breadController = TextEditingController();
-  TextEditingController price2Controller = TextEditingController();
 
   List lunchList = [];
   bool isMain = false;
@@ -43,14 +41,217 @@ class __LunchDinnerState extends State<LunchDinner> {
 
   TextEditingController sweetController = TextEditingController();
 
+  Widget lunchOrDinnerStreamBuilder({bool isLunch = false}) {
+    return StreamBuilder<List<Map<String, dynamic>>>(
+        stream: isLunch ? lunchListStream() : dinnerListStream(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.hasError) {
+            return Center(
+              child: Text("Error ${snapshot.error}"),
+            );
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(
+              child: Text("No Menu Added Yet"),
+            );
+          }
+
+          final outerList = snapshot.data!;
+
+          final list = outerList[0];
+          return Slidable(
+              endActionPane: ActionPane(
+                motion: const BehindMotion(),
+                children: [
+                  SlidableAction(
+                    onPressed: (context) {
+                      if (isLunch) {
+                        deleteLunch();
+                      } else {
+                        deleteDinner();
+                      }
+
+                      setState(() {});
+                    },
+                    backgroundColor: Colors.red,
+                    foregroundColor: Colors.white,
+                    icon: Icons.delete,
+                    //label: 'Delete',
+                  ),
+                  SlidableAction(
+                    onPressed: (context) {
+                      bottomSheetThali(isEdit: true);
+                    },
+                    backgroundColor: Colors.blue,
+                    foregroundColor: Colors.white,
+                    icon: Icons.edit,
+                    // label: 'Edit',
+                  )
+                ],
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(MainApp.widthCal(8)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                    color: Colors.orange,
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Image Section
+                      Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(MainApp.widthCal(10)),
+                            ),
+                            child: Image.asset(
+                              "assets/thali.png",
+                              fit: BoxFit.cover,
+                            ),
+                            height: MainApp.heightCal(100),
+                            width: MainApp.widthCal(100),
+                          ),
+                          SizedBox(height: MainApp.heightCal(10)),
+                          Text("Price : ${list['price']}")
+                        ],
+                      ),
+
+                      // Content Section
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: MainApp.widthCal(10),
+                              vertical: MainApp.heightCal(5)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Item Name
+                              Center(
+                                child: Text(
+                                  isLunch ? "Lunch" : "Dinner",
+                                  style: GoogleFonts.poppins(
+                                    color: Colors.white,
+                                    fontSize: MainApp.widthCal(16),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+
+                              Divider(
+                                color: Colors.white54,
+                                thickness: 0.5,
+                                height: MainApp.heightCal(10),
+                              ),
+
+                              // Sabji 1 and Sabji 2
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      "1: ${list['sabji1']}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: MainApp.widthCal(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "2: ${list['sabji2']}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: MainApp.widthCal(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: MainApp.heightCal(5)),
+
+                              // Sweet and Chapati
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      "Sweet: ${list['sweet']}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: MainApp.widthCal(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "${list['chapati']}: ${list['count']}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: MainApp.widthCal(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                              SizedBox(height: MainApp.heightCal(5)),
+
+                              // Rice and Dal
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      "Rice: ${list['rice']}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: MainApp.widthCal(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      "Dal: ${list['dal']}",
+                                      style: GoogleFonts.poppins(
+                                        color: Colors.white,
+                                        fontSize: MainApp.widthCal(12),
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (widget.isLunchSelected) {
-      lunchListGetter();
-    } else {
-      dinnerListGetter();
-    }
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -63,13 +264,15 @@ class __LunchDinnerState extends State<LunchDinner> {
           title: Text(
             "Today's Menu",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontSize:MainApp.widthCal(20), fontWeight: FontWeight.w500),
+                color: Colors.black,
+                fontSize: MainApp.widthCal(20),
+                fontWeight: FontWeight.w500),
           ),
         ),
         body: Column(
           children: [
             Padding(
-              padding:  EdgeInsets.all(MainApp.widthCal(20)),
+              padding: EdgeInsets.all(MainApp.widthCal(20)),
               child: Row(
                 children: [
                   Text(
@@ -82,7 +285,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                   Spacer(),
                   GestureDetector(
                     onTap: () {
-                      bottomSheetThali();
+                      bottomSheetThali(isEdit: false);
                     },
                     child: Container(
                       height: MainApp.heightCal(40),
@@ -99,215 +302,101 @@ class __LunchDinnerState extends State<LunchDinner> {
                 ],
               ),
             ),
-            ListView.builder(
-                shrinkWrap: true,
-                itemCount: widget.isLunchSelected
-                    ? lunchList.length
-                    : dinnerList.length,
-                itemBuilder: (context, index) {
-                  return Slidable(
-                      endActionPane: ActionPane(
-                        motion: const BehindMotion(),
-                        children: [
-                          SlidableAction(
-                            onPressed: (context) {
-                              // Handle delete action
-                              setState(() {});
-                            },
-                            backgroundColor: Colors.red,
-                            foregroundColor: Colors.white,
-                            icon: Icons.delete,
-                            //label: 'Delete',
-                          ),
-                          SlidableAction(
-                            onPressed: (context) {
-                              // Handle edit action
-                              // Add logic for editing if required
-                            },
-                            backgroundColor: Colors.blue,
-                            foregroundColor: Colors.white,
-                            icon: Icons.edit,
-                            // label: 'Edit',
-                          )
-                        ],
-                      ),
-                      child: Padding(
-                        padding:  EdgeInsets.all(MainApp.widthCal(8)),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
-                            color: Colors.orange,
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Image Section
-                              Column(
-                                children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(MainApp.widthCal(10)),
-                                    ),
-                                    child: Image.asset(
-                                      "assets/thali.png",
-                                      fit: BoxFit.cover,
-                                    ),
-                                    height: MainApp.heightCal(100),
-                                    width: MainApp.widthCal(100),
-                                  ),
-                                  SizedBox(height: MainApp.heightCal(10)),
-                                  Text(widget.isLunchSelected
-                                      ? "Price : ${lunchList[index]['price']}"
-                                      : "Price : ${dinnerList[index]['price']}")
-                                ],
-                              ),
-
-                              // Content Section
-                              Expanded(
-                                child: Padding(
-                                  padding:  EdgeInsets.symmetric(
-                                      horizontal: MainApp.widthCal(10), vertical: MainApp.heightCal(5)),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      // Item Name
-                                      Center(
-                                        child: Text(
-                                          widget.isLunchSelected
-                                              ? "Lunch"
-                                              : "Dinner",
-                                          style: GoogleFonts.poppins(
-                                            color: Colors.white,
-                                            fontSize: MainApp.widthCal(16),
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ),
-
-                                     Divider(
-                                        color: Colors.white54,
-                                        thickness: 0.5,
-                                        height: MainApp.heightCal(10),
-                                      ),
-
-                                      // Sabji 1 and Sabji 2
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              widget.isLunchSelected
-                                                  ? "1: ${lunchList[index]['sabji1']}"
-                                                  : "1: ${dinnerList[index]['sabji1']}",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.white,
-                                                fontSize: MainApp.widthCal(12),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              widget.isLunchSelected
-                                                  ? "2: ${lunchList[index]['sabji2']}"
-                                                  : "2. ${dinnerList[index]['sabji2']}",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.white,
-                                                fontSize: MainApp.widthCal(12),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-
-                                       SizedBox(height: MainApp.heightCal(5)),
-
-                                      // Sweet and Chapati
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              widget.isLunchSelected
-                                                  ? "Sweet: ${lunchList[index]['sweet']}"
-                                                  : "Sweet: ${dinnerList[index]['sweet']}",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.white,
-                                                fontSize: MainApp.widthCal(12),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              widget.isLunchSelected
-                                                  ? "${lunchList[index]['chapati']}: ${lunchList[index]['count']}"
-                                                  : "${dinnerList[index]['chapati']}: ${dinnerList[index]['count']}",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.white,
-                                                fontSize: MainApp.widthCal(12),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-
-                                       SizedBox(height: MainApp.heightCal(5)),
-
-                                      // Rice and Dal
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              widget.isLunchSelected
-                                                  ? "Rice: ${lunchList[index]['rice']}"
-                                                  : "Rice: ${dinnerList[index]['rice']}",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.white,
-                                                fontSize: MainApp.widthCal(12),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                          Flexible(
-                                            child: Text(
-                                              widget.isLunchSelected
-                                                  ? "Dal: ${lunchList[index]['dal']}"
-                                                  : "Dal: ${dinnerList[index]['dal']}",
-                                              style: GoogleFonts.poppins(
-                                                color: Colors.white,
-                                                fontSize: MainApp.widthCal(12),
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ));
-                }),
+            lunchOrDinnerStreamBuilder(isLunch: widget.isLunchSelected)
           ],
         ),
       ),
     );
   }
 
+  void editLunch() {
+    dynamic map = lunchList[0];
+    sabji1Controller.text = map['sabji1'];
+    sabji2Controller.text = map['sabji2'];
+    sweetController.text = map['sweet'];
+    chapatiBhakriController.text = map['chapati'];
+    chapatiBhakriCountController.text = map['count'];
+    riceController.text = map['rice'];
+    dalController.text = map['dal'];
+    priceController.text = map['price'];
+  }
+
+  void editDinner() {
+    dynamic map = dinnerList[0];
+    sabji1Controller.text = map['sabji1'];
+    sabji2Controller.text = map['sabji2'];
+    sweetController.text = map['sweet'];
+    chapatiBhakriController.text = map['chapati'];
+    chapatiBhakriCountController.text = map['count'];
+    riceController.text = map['rice'];
+    dalController.text = map['dal'];
+    priceController.text = map['price'];
+  }
+
+  void deleteLunch() async {
+    await FirebaseFirestore.instance
+        .collection('Menu')
+        .doc('${MainApp.messName}')
+        .collection('Lunch')
+        .doc('LunchMenu')
+        .delete();
+  }
+
+  void deleteDinner() async {
+    await FirebaseFirestore.instance
+        .collection('Menu')
+        .doc('${MainApp.messName}')
+        .collection('Dinner')
+        .doc('DinnerMenu')
+        .delete();
+  }
+
   dynamic nullChecker(dynamic value) {
     return value ?? "Not updated";
+  }
+
+  Stream<List<Map<String, dynamic>>> lunchListStream() {
+    return FirebaseFirestore.instance
+        .collection('Menu')
+        .doc('${MainApp.messName}')
+        .collection('Lunch')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return {
+          'sabji1': doc['sabji1'],
+          'sabji2': doc['sabji2'],
+          'sweet': doc['sweet'],
+          'chapati': doc['chapati'],
+          'count': doc['count'],
+          'rice': doc['rice'],
+          'dal': doc['dal'],
+          'price': doc['price'],
+        };
+      }).toList();
+    });
+  }
+
+  Stream<List<Map<String, dynamic>>> dinnerListStream() {
+    return FirebaseFirestore.instance
+        .collection('Menu')
+        .doc('${MainApp.messName}')
+        .collection('Dinner')
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
+        return {
+          'sabji1': doc['sabji1'],
+          'sabji2': doc['sabji2'],
+          'sweet': doc['sweet'],
+          'chapati': doc['chapati'],
+          'count': doc['count'],
+          'rice': doc['rice'],
+          'dal': doc['dal'],
+          'price': doc['price'],
+        };
+      }).toList();
+    });
   }
 
   void lunchListGetter() async {
@@ -440,7 +529,20 @@ class __LunchDinnerState extends State<LunchDinner> {
     Navigator.of(context).pop();
   }
 
-  Future bottomSheetThali() {
+  Future bottomSheetThali({
+    bool isEdit = false,
+  }) {
+    sabji1Controller.clear();
+    sabji2Controller.clear();
+    sweetController.clear();
+    chapatiBhakriController.clear();
+    chapatiBhakriCountController.clear();
+    riceController.clear();
+    dalController.clear();
+    priceController.clear();
+    if (isEdit) {
+      editLunch();
+    }
     return showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -456,7 +558,7 @@ class __LunchDinnerState extends State<LunchDinner> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.all(MainApp.widthCal(8)),
+                      padding: EdgeInsets.all(MainApp.widthCal(8)),
                       child: Text(
                         "Add Thali Menu Here",
                         style: GoogleFonts.poppins(
@@ -466,7 +568,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(10),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -480,16 +584,19 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: sabji1Controller,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
-                            borderSide:const BorderSide(
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -497,7 +604,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(10),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -511,15 +620,18 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: sabji2Controller,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
                             borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
@@ -528,7 +640,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(10),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -542,16 +656,19 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: sweetController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
-                            borderSide:const BorderSide(
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -559,7 +676,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(10),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -573,16 +692,19 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: chapatiBhakriController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
-                            borderSide:const BorderSide(
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -590,7 +712,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(15),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -604,8 +728,10 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
@@ -614,7 +740,8 @@ class __LunchDinnerState extends State<LunchDinner> {
                               decimal: true),
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
                             borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
@@ -623,7 +750,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(10),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -637,16 +766,19 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: riceController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
-                            borderSide:const  BorderSide(
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
+                            borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
                           )),
@@ -654,7 +786,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(10), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(10),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -668,15 +802,18 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
                           controller: dalController,
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
                             borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
@@ -685,7 +822,9 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(15),
+                          left: MainApp.widthCal(20)),
                       child: Row(
                         children: [
                           Text(
@@ -699,8 +838,10 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:
-                           EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                      padding: EdgeInsets.only(
+                          top: MainApp.heightCal(5),
+                          left: MainApp.widthCal(20),
+                          right: MainApp.widthCal(20)),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: TextField(
@@ -709,7 +850,8 @@ class __LunchDinnerState extends State<LunchDinner> {
                               decimal: true),
                           decoration: InputDecoration(
                               border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(15)),
                             borderSide: const BorderSide(
                               color: Colors.orange,
                             ),
@@ -718,10 +860,10 @@ class __LunchDinnerState extends State<LunchDinner> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.all(MainApp.widthCal(40)),
+                      padding: EdgeInsets.all(MainApp.widthCal(40)),
                       child: GestureDetector(
                         onTap: () {
-                          submit(isedit: false);
+                          submit(isedit: isEdit);
                           if (widget.isLunchSelected) {
                             lunchListGetter();
                           } else {
@@ -731,10 +873,11 @@ class __LunchDinnerState extends State<LunchDinner> {
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                              borderRadius:
+                                  BorderRadius.circular(MainApp.widthCal(20)),
                               color: Colors.orange),
                           child: Padding(
-                            padding:  EdgeInsets.all(MainApp.widthCal(15)),
+                            padding: EdgeInsets.all(MainApp.widthCal(15)),
                             child: Center(
                               child: Text(
                                 "Submit",
