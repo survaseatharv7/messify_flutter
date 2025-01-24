@@ -44,7 +44,6 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
-    log("Height = $screenHeight");
 
     return const MaterialApp(
       debugShowCheckedModeBanner: false,

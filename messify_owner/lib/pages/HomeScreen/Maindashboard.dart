@@ -8,6 +8,7 @@ import 'package:messify_owner/pages/QRScreen/generateQR.dart';
 import 'package:messify_owner/pages/SubscriptionScreens/Subcription.dart';
 import 'package:messify_owner/pages/MenuScreens/addMenuScreen.dart';
 import 'package:messify_owner/pages/ProfileScreens/profile.dart';
+import 'package:rating_summary/rating_summary.dart';
 
 class Maindashboard extends StatefulWidget {
   const Maindashboard({super.key});
@@ -228,76 +229,93 @@ class _DashboardPageState extends State<DashboardPage> {
             return Center(child: Text("No Feedbacks Found"));
           }
           final feedbackList = snapshot.data!;
-          return ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: feedbackList.length,
-            itemBuilder: (context, index) {
-              dynamic review = feedbackList[index];
-              return Padding(
-                padding: EdgeInsets.symmetric(vertical: MainApp.heightCal(8)),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      MainApp.widthCal(10),
+
+          return Column(
+            children: [
+              RatingSummary(
+                counter: 13,
+                average: 3.846,
+                showAverage: true,
+                counterFiveStars: 5,
+                counterFourStars: 4,
+                counterThreeStars: 2,
+                counterTwoStars: 1,
+                counterOneStars: 1,
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics: ScrollPhysics(parent: BouncingScrollPhysics()),
+                itemCount: feedbackList.length,
+                itemBuilder: (context, index) {
+                  dynamic review = feedbackList[index];
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: MainApp.heightCal(8)),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(
+                          MainApp.widthCal(10),
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 6.0,
+                            offset: Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      padding: EdgeInsets.all(
+                        MainApp.widthCal(16),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${review['Name']}",
+                            style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: MainApp.widthCal(18),
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          SizedBox(height: MainApp.heightCal(8)),
+                          Row(
+                            children: List.generate(5, (starIndex) {
+                              return Icon(
+                                starIndex < review['starIndex']
+                                    ? Icons.star
+                                    : Icons.star_border_outlined,
+                                color: const Color.fromARGB(255, 195, 175, 0),
+                              );
+                            }),
+                          ),
+                          SizedBox(height: MainApp.heightCal(10)),
+                          Text(
+                            review['review'],
+                            style: GoogleFonts.poppins(
+                              color: Colors.black,
+                              fontSize: MainApp.widthCal(16),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          SizedBox(height: MainApp.heightCal(10)),
+                          Text(
+                            "Posted on: ${review['date']}",
+                            style: GoogleFonts.poppins(
+                              color: Colors.grey,
+                              fontSize: MainApp.widthCal(14),
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 6.0,
-                        offset: Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  padding: EdgeInsets.all(
-                    MainApp.widthCal(16),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${review['Name']}",
-                        style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: MainApp.widthCal(18),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: MainApp.heightCal(8)),
-                      Row(
-                        children: List.generate(5, (starIndex) {
-                          return Icon(
-                            starIndex < review['starIndex']
-                                ? Icons.star
-                                : Icons.star_border_outlined,
-                            color: const Color.fromARGB(255, 195, 175, 0),
-                          );
-                        }),
-                      ),
-                      SizedBox(height: MainApp.heightCal(10)),
-                      Text(
-                        review['review'],
-                        style: GoogleFonts.poppins(
-                          color: Colors.black,
-                          fontSize: MainApp.widthCal(16),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      SizedBox(height: MainApp.heightCal(10)),
-                      Text(
-                        "Posted on: ${review['date']}",
-                        style: GoogleFonts.poppins(
-                          color: Colors.grey,
-                          fontSize: MainApp.widthCal(14),
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            },
+                  );
+                },
+              ),
+            ],
           );
         });
   }
@@ -378,249 +396,252 @@ class _DashboardPageState extends State<DashboardPage> {
           SizedBox(
             height: MainApp.heightCal(15),
           ),
-          Container(
-            height: MainApp.heightCal(800),
-            width: MainApp.widthCal(500),
-            decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                      color: Colors.grey,
-                      blurRadius: 10.0,
-                      offset: Offset(0, -2))
-                ],
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(
-                  MainApp.widthCal(15),
-                ))),
-            child: Padding(
-              padding: EdgeInsets.all(
-                MainApp.widthCal(16),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // if (isPoll)
-                  //   StreamBuilder(
-                  //       stream: FirebaseFirestore.instance
-                  //           .collection('Poll')
-                  //           .doc(MainApp.messName)
-                  //           .collection('PollData')
-                  //           .doc('$year-$month-$date')
-                  //           .snapshots(),
-                  //       builder: (context, snapshot) {
-                  //         if (snapshot.connectionState ==
-                  //             ConnectionState.waiting) {
-                  //           return Center(
-                  //             child: CircularProgressIndicator(),
-                  //           );
-                  //         }
-                  //         if (snapshot.hasError) {
-                  //           return Center(
-                  //             child: Text("Error : ${snapshot.error}"),
-                  //           );
-                  //         }
-                  //         return Column(
-                  //           children: [
-                  //             Text(
-                  //               "Poll Results for ${pollDetails['question']}",
-                  //               style: GoogleFonts.poppins(
-                  //                 fontSize: MainApp.widthCal(20),
-                  //                 fontWeight: FontWeight.bold,
-                  //                 color: Colors.black87,
-                  //               ),
-                  //             ),
-                  //             SizedBox(height: MainApp.heightCal(20)),
-                  //             SizedBox(
-                  //               height: MainApp.heightCal(200),
-                  //               child: BarChart(
-                  //                 BarChartData(
-                  //                   alignment: BarChartAlignment.spaceAround,
-                  //                   maxY: MainApp.heightCal(20),
-                  //                   barGroups: [
-                  //                     BarChartGroupData(
-                  //                       x: 0,
-                  //                       barRods: [
-                  //                         BarChartRodData(
-                  //                           toY: (options[0]['votes'] as num)
-                  //                               .toDouble(),
-                  //                           color: Colors.orange,
-                  //                           width: MainApp.widthCal(20),
-                  //                         ),
-                  //                       ],
-                  //                     ),
-                  //                     BarChartGroupData(
-                  //                       x: 1,
-                  //                       barRods: [
-                  //                         BarChartRodData(
-                  //                           toY: (options[1]['votes'] as num)
-                  //                               .toDouble(),
-                  //                           color: Colors.blue,
-                  //                           width: MainApp.widthCal(20),
-                  //                         ),
-                  //                       ],
-                  //                     ),
-                  //                     BarChartGroupData(
-                  //                       x: 2,
-                  //                       barRods: [
-                  //                         BarChartRodData(
-                  //                           toY: (options[2]['votes'] as num)
-                  //                               .toDouble(),
-                  //                           color: Colors.green,
-                  //                           width: MainApp.widthCal(20),
-                  //                         ),
-                  //                       ],
-                  //                     ),
-                  //                   ],
-                  //                   titlesData: FlTitlesData(
-                  //                     leftTitles: const AxisTitles(
-                  //                       sideTitles:
-                  //                           SideTitles(showTitles: false),
-                  //                     ),
-                  //                     bottomTitles: AxisTitles(
-                  //                       sideTitles: SideTitles(
-                  //                         showTitles: true,
-                  //                         getTitlesWidget:
-                  //                             (double value, TitleMeta meta) {
-                  //                           switch (value.toInt()) {
-                  //                             case 0:
-                  //                               return Text(
-                  //                                   '${options[0]['title']}');
-                  //                             case 1:
-                  //                               return Text(
-                  //                                   '${options[1]['title']}');
-                  //                             case 2:
-                  //                               return Text(
-                  //                                   '${options[2]['title']}');
-                  //                             default:
-                  //                               return const Text('Bhendi Fry');
-                  //                           }
-                  //                         },
-                  //                       ),
-                  //                     ),
-                  //                   ),
-                  //                   borderData: FlBorderData(show: false),
-                  //                   barTouchData: BarTouchData(enabled: true),
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ],
-                  //         );
-                  //       }),
-                  // SizedBox(
-                  //   height: MainApp.heightCal(20),
-                  // ),
+          SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Container(
+              height: isInterested ? MainApp.heightCal(600) : null,
+              width: MainApp.widthCal(500),
+              decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 10.0,
+                        offset: Offset(0, -2))
+                  ],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15))),
+              child: Padding(
+                padding: EdgeInsets.all(
+                  MainApp.widthCal(16),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // if (isPoll)
+                    //   StreamBuilder(
+                    //       stream: FirebaseFirestore.instance
+                    //           .collection('Poll')
+                    //           .doc(MainApp.messName)
+                    //           .collection('PollData')
+                    //           .doc('$year-$month-$date')
+                    //           .snapshots(),
+                    //       builder: (context, snapshot) {
+                    //         if (snapshot.connectionState ==
+                    //             ConnectionState.waiting) {
+                    //           return Center(
+                    //             child: CircularProgressIndicator(),
+                    //           );
+                    //         }
+                    //         if (snapshot.hasError) {
+                    //           return Center(
+                    //             child: Text("Error : ${snapshot.error}"),
+                    //           );
+                    //         }
+                    //         return Column(
+                    //           children: [
+                    //             Text(
+                    //               "Poll Results for ${pollDetails['question']}",
+                    //               style: GoogleFonts.poppins(
+                    //                 fontSize: MainApp.widthCal(20),
+                    //                 fontWeight: FontWeight.bold,
+                    //                 color: Colors.black87,
+                    //               ),
+                    //             ),
+                    //             SizedBox(height: MainApp.heightCal(20)),
+                    //             SizedBox(
+                    //               height: MainApp.heightCal(200),
+                    //               child: BarChart(
+                    //                 BarChartData(
+                    //                   alignment: BarChartAlignment.spaceAround,
+                    //                   maxY: MainApp.heightCal(20),
+                    //                   barGroups: [
+                    //                     BarChartGroupData(
+                    //                       x: 0,
+                    //                       barRods: [
+                    //                         BarChartRodData(
+                    //                           toY: (options[0]['votes'] as num)
+                    //                               .toDouble(),
+                    //                           color: Colors.orange,
+                    //                           width: MainApp.widthCal(20),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                     BarChartGroupData(
+                    //                       x: 1,
+                    //                       barRods: [
+                    //                         BarChartRodData(
+                    //                           toY: (options[1]['votes'] as num)
+                    //                               .toDouble(),
+                    //                           color: Colors.blue,
+                    //                           width: MainApp.widthCal(20),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                     BarChartGroupData(
+                    //                       x: 2,
+                    //                       barRods: [
+                    //                         BarChartRodData(
+                    //                           toY: (options[2]['votes'] as num)
+                    //                               .toDouble(),
+                    //                           color: Colors.green,
+                    //                           width: MainApp.widthCal(20),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                   ],
+                    //                   titlesData: FlTitlesData(
+                    //                     leftTitles: const AxisTitles(
+                    //                       sideTitles:
+                    //                           SideTitles(showTitles: false),
+                    //                     ),
+                    //                     bottomTitles: AxisTitles(
+                    //                       sideTitles: SideTitles(
+                    //                         showTitles: true,
+                    //                         getTitlesWidget:
+                    //                             (double value, TitleMeta meta) {
+                    //                           switch (value.toInt()) {
+                    //                             case 0:
+                    //                               return Text(
+                    //                                   '${options[0]['title']}');
+                    //                             case 1:
+                    //                               return Text(
+                    //                                   '${options[1]['title']}');
+                    //                             case 2:
+                    //                               return Text(
+                    //                                   '${options[2]['title']}');
+                    //                             default:
+                    //                               return const Text('Bhendi Fry');
+                    //                           }
+                    //                         },
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                   borderData: FlBorderData(show: false),
+                    //                   barTouchData: BarTouchData(enabled: true),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         );
+                    //       }),
+                    // SizedBox(
+                    //   height: MainApp.heightCal(20),
+                    // ),
 
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isInterested = true;
-                              isFeedback = false;
-                              _selectedTabIndex = 0;
-                            });
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            height: _selectedTabIndex == 0
-                                ? MainApp.heightCal(60)
-                                : MainApp.heightCal(
-                                    50), // Increase height when selected
-                            width: _selectedTabIndex == 0
-                                ? MainApp.widthCal(160)
-                                : MainApp.widthCal(
-                                    160), // Increase width when selected
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(MainApp.widthCal(25)),
-                              gradient: LinearGradient(
-                                colors: _selectedTabIndex == 0
-                                    ? [
-                                        Color.fromRGBO(255, 121, 46, 1),
-                                        Color.fromRGBO(255, 181, 100, 1)
-                                      ]
-                                    : [
-                                        Colors.grey.shade300,
-                                        Colors.grey.shade400
-                                      ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isInterested = true;
+                                isFeedback = false;
+                                _selectedTabIndex = 0;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              height: _selectedTabIndex == 0
+                                  ? MainApp.heightCal(60)
+                                  : MainApp.heightCal(
+                                      50), // Increase height when selected
+                              width: _selectedTabIndex == 0
+                                  ? MainApp.widthCal(160)
+                                  : MainApp.widthCal(
+                                      160), // Increase width when selected
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(MainApp.widthCal(25)),
+                                gradient: LinearGradient(
+                                  colors: _selectedTabIndex == 0
+                                      ? [
+                                          Color.fromRGBO(255, 121, 46, 1),
+                                          Color.fromRGBO(255, 181, 100, 1)
+                                        ]
+                                      : [
+                                          Colors.grey.shade300,
+                                          Colors.grey.shade400
+                                        ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
                               ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Today's Attendees",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
+                              child: Center(
+                                child: Text(
+                                  "Today's Attendees",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: MainApp.widthCal(10)),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              isInterested = false;
-                              isFeedback = true;
-                              _selectedTabIndex = 1;
-                            });
-                          },
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 300),
-                            height: _selectedTabIndex == 1
-                                ? MainApp.heightCal(60)
-                                : MainApp.heightCal(
-                                    50), // Increase height when selected
-                            width: _selectedTabIndex == 1
-                                ? MainApp.widthCal(160)
-                                : MainApp.widthCal(
-                                    160), // Increase width when selected
-                            decoration: BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.circular(MainApp.widthCal(25)),
-                              gradient: LinearGradient(
-                                colors: _selectedTabIndex == 1
-                                    ? [
-                                        Color.fromRGBO(255, 121, 46, 1),
-                                        Color.fromRGBO(255, 181, 100, 1)
-                                      ]
-                                    : [
-                                        Colors.grey.shade300,
-                                        Colors.grey.shade400
-                                      ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                          SizedBox(width: MainApp.widthCal(10)),
+                          GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                isInterested = false;
+                                isFeedback = true;
+                                _selectedTabIndex = 1;
+                              });
+                            },
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              height: _selectedTabIndex == 1
+                                  ? MainApp.heightCal(60)
+                                  : MainApp.heightCal(
+                                      50), // Increase height when selected
+                              width: _selectedTabIndex == 1
+                                  ? MainApp.widthCal(160)
+                                  : MainApp.widthCal(
+                                      160), // Increase width when selected
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(MainApp.widthCal(25)),
+                                gradient: LinearGradient(
+                                  colors: _selectedTabIndex == 1
+                                      ? [
+                                          Color.fromRGBO(255, 121, 46, 1),
+                                          Color.fromRGBO(255, 181, 100, 1)
+                                        ]
+                                      : [
+                                          Colors.grey.shade300,
+                                          Colors.grey.shade400
+                                        ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
                               ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                "Feedbacks",
-                                style: GoogleFonts.poppins(
-                                  fontSize: MainApp.widthCal(15),
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white,
+                              child: Center(
+                                child: Text(
+                                  "Feedbacks",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: MainApp.widthCal(15),
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: MainApp.widthCal(10)),
-                      ],
+                          SizedBox(width: MainApp.widthCal(10)),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: MainApp.heightCal(20),
-                  ),
-                  if (isInterested) interestedUserCountCard(),
+                    SizedBox(
+                      height: MainApp.heightCal(20),
+                    ),
+                    if (isInterested) interestedUserCountCard(),
 
-                  if (isFeedback) feedbackCard(),
-                ],
+                    if (isFeedback) feedbackCard(),
+                  ],
+                ),
               ),
             ),
           ),
