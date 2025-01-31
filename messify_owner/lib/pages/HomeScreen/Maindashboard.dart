@@ -87,16 +87,6 @@ class _DashboardPageState extends State<DashboardPage> {
   bool isInterested = false;
   int _selectedTabIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    // initializeData();
-  }
-
-  // void initializeData() async {
-  //   await feedback();
-  // }
-
   Stream<int> getInterestedUserCountStream() {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
@@ -107,20 +97,6 @@ class _DashboardPageState extends State<DashboardPage> {
         .snapshots()
         .map((snapshot) => snapshot.docs.length);
   }
-
-  // Future<void> feedback() async {
-  //   QuerySnapshot response =
-  //       await FirebaseFirestore.instance.collection("Feedback").get();
-
-  //   bool isFeedback = false;
-
-  //   for (int i = 0; i < response.docs.length; i++) {
-  //     if (response.docs[i].id == MainApp.messName) {
-  //       isFeedback = true;
-  //       this.isFeedback = true;
-  //     }
-  //   }
-  // }
 
   Stream<List<Map<String, dynamic>>>? listOfReviewStream() {
     return FirebaseFirestore.instance
@@ -167,26 +143,6 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() {});
     print(pollDetails);
     print(options);
-  }
-
-  Future<void> listOfReviewsListGetter() async {
-    QuerySnapshot response = await FirebaseFirestore.instance
-        .collection('Feedback')
-        .doc(MainApp.messName)
-        .collection('UsersFeedback')
-        .get();
-    listOfReviews.clear();
-
-    for (int i = 0; i < response.docs.length; i++) {
-      DocumentSnapshot docSnap = response.docs[i];
-      Map<String, dynamic> map = {};
-      map['Name'] = docSnap['Name'];
-      map['date'] = docSnap['date'];
-      map['review'] = docSnap['review'];
-      map['starIndex'] = docSnap['starIndex'] + 1;
-      listOfReviews.add(map);
-    }
-    setState(() {});
   }
 
   Widget interestedUserCountCard() {
@@ -330,76 +286,74 @@ class _DashboardPageState extends State<DashboardPage> {
       isFeedback = true;
     }
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: MainApp.heightCal(50),
-          ),
-          Row(
-            children: [
-              SizedBox(
-                width: MainApp.widthCal(10),
-              ),
-              Text(
-                "${MainApp.messName}",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: MainApp.widthCal(30),
-                    fontWeight: FontWeight.w700),
-              ),
-              Spacer(),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => GenerateQRCodePage()));
-                  },
-                  icon: const Icon(
-                    Icons.qr_code_scanner,
-                    color: Colors.white,
-                  ))
-            ],
-          ),
-          Center(
-            child: Padding(
-              padding: EdgeInsets.all(
-                MainApp.widthCal(8),
-              ),
-              child: Container(
-                height: MainApp.heightCal(250),
-                width: MainApp.widthCal(500),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    MainApp.widthCal(20),
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        SizedBox(
+          height: MainApp.heightCal(50),
+        ),
+        Row(
+          children: [
+            SizedBox(
+              width: MainApp.widthCal(10),
+            ),
+            Text(
+              "${MainApp.messName}",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: MainApp.widthCal(30),
+                  fontWeight: FontWeight.w700),
+            ),
+            Spacer(),
+            IconButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GenerateQRCodePage()));
+                },
+                icon: const Icon(
+                  Icons.qr_code_scanner,
+                  color: Colors.white,
+                ))
+          ],
+        ),
+        Center(
+          child: Padding(
+            padding: EdgeInsets.all(
+              MainApp.widthCal(8),
+            ),
+            child: Container(
+              height: MainApp.heightCal(250),
+              width: MainApp.widthCal(500),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  MainApp.widthCal(20),
                 ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(
-                    MainApp.widthCal(20),
-                  ),
-                  child: Image.asset(
-                    "assets/mess1.jpeg",
-                    fit: BoxFit.cover,
-                  ),
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(
+                  MainApp.widthCal(20),
+                ),
+                child: Image.asset(
+                  "assets/mess1.jpeg",
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
           ),
-          SizedBox(
-            height: MainApp.heightCal(15),
-          ),
-          SizedBox(
-            height: MainApp.heightCal(15),
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.vertical,
+        ),
+        SizedBox(
+          height: MainApp.heightCal(15),
+        ),
+        SizedBox(
+          height: MainApp.heightCal(15),
+        ),
+        Expanded(
+          child: SingleChildScrollView(
             child: Container(
-              height: isInterested ? MainApp.heightCal(600) : null,
+              height: isInterested ? MainApp.heightCal(500) : null,
               width: MainApp.widthCal(500),
               decoration: BoxDecoration(
                   boxShadow: const [
@@ -645,8 +599,8 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

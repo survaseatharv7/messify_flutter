@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:messify_owner/pages/BoardingPages/firstonboardingscreen.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,14 +12,7 @@ void main() async {
           projectId: "messify-flutter"));
 
   runApp(
-    MultiProvider(
-      providers: [
-        Provider(
-          create: (context) => MessNameViewModel(messName: ""),
-        ),
-      ],
-      child: MainApp(),
-    ),
+    const MainApp(),
   );
 }
 
@@ -52,9 +42,9 @@ class MainApp extends StatelessWidget {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
 
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Loginscreen(),
+      home: FirstOnboardingScreen(),
     );
   }
 }
