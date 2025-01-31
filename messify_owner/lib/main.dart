@@ -6,6 +6,8 @@ import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
 import 'package:messify_owner/pages/HomeScreen/Maindashboard.dart';
 import 'package:messify_owner/pages/BoardingPages/Splashscreen.dart';
 import 'package:messify_owner/pages/BoardingPages/firstonboardingscreen.dart';
+import 'package:messify_owner/view_models/mess_name_view_model.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +18,16 @@ void main() async {
           messagingSenderId: "579643748294",
           projectId: "messify-flutter"));
 
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider(
+          create: (context) => MessNameViewModel(messName: ""),
+        ),
+      ],
+      child: MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {

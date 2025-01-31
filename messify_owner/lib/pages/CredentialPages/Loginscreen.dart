@@ -130,8 +130,6 @@ class Loginscreen extends StatelessWidget {
                   } on FirebaseAuthException catch (error) {
                     print(error.message);
                   }
-                  /*Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => Maindashboard()));*/
                 },
                 child: Container(
                   height: MainApp.heightCal(50),
