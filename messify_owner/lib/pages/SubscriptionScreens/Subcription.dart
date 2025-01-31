@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/models/lastDateOfMonth.dart';
 import 'package:messify_owner/pages/SubscriptionScreens/subscribedMembers.dart';
+
+import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
 
 class EnhancedSubscriptionCard extends StatelessWidget {
   const EnhancedSubscriptionCard({Key? key}) : super(key: key);
@@ -115,36 +118,36 @@ class EnhancedSubscriptionCard extends StatelessWidget {
   }
 }
 
-class CalendarDay extends StatelessWidget {
-  final String day;
-  final bool isSelected;
+// class CalendarDay extends StatelessWidget {
+//   final String day;
+//   final bool isSelected;
 
-  CalendarDay({required this.day, this.isSelected = false});
+//   CalendarDay({required this.day, this.isSelected = false});
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: 5),
-      child: Container(
-        padding: EdgeInsets.all(8),
-        height: 50,
-        width: 50,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: isSelected ? Colors.orange : Colors.grey[200],
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          day,
-          style: TextStyle(
-            fontSize: 16,
-            color: isSelected ? Colors.white : Colors.black,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: EdgeInsets.only(left: 5),
+//       child: Container(
+//         padding: EdgeInsets.all(8),
+//         height: 50,
+//         width: 50,
+//         alignment: Alignment.center,
+//         decoration: BoxDecoration(
+//           color: isSelected ? Colors.orange : Colors.grey[200],
+//           borderRadius: BorderRadius.circular(8),
+//         ),
+//         child: Text(
+//           day,
+//           style: TextStyle(
+//             fontSize: 16,
+//             color: isSelected ? Colors.white : Colors.black,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class Subcription extends StatefulWidget {
   const Subcription({super.key});
@@ -185,9 +188,9 @@ class _SubcriptionState extends State<Subcription> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToSelectedDay(selectedDayIndex);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   _scrollToSelectedDay(selectedDayIndex);
+    // });
   }
 
   Widget cardBuilder(int index) {
@@ -261,22 +264,27 @@ class _SubcriptionState extends State<Subcription> {
         ));
   }
 
-  void _scrollToSelectedDay(int index) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double itemWidth = 60; // Adjust based on your actual item width
-    double targetOffset =
-        (index * itemWidth) - (screenWidth / 2) + (itemWidth / 2);
+  // void _scrollToSelectedDay(int index) {
+  //   double screenWidth = MediaQuery.of(context).size.width;
+  //   double itemWidth = 60; // Adjust based on your actual item width
+  //   double targetOffset =
+  //       (index * itemWidth) - (screenWidth / 2) + (itemWidth / 2);
 
-    _scrollController.animateTo(
-      targetOffset.clamp(0.0,
-          _scrollController.position.maxScrollExtent), // Ensure valid range
-      duration: Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
-  }
+  //   _scrollController.animateTo(
+  //     targetOffset.clamp(0.0,
+  //         _scrollController.position.maxScrollExtent), // Ensure valid range
+  //     duration: Duration(milliseconds: 300),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
+     dynamic selectedDate = DateTime.now();
+  DateTime now = DateTime.now();
+
+    String formattedDateSelected = DateFormat('dd/MM/yyyy').format(selectedDate);
+   String formattedDateCurrent = DateFormat('dd/MM/yyyy').format(now);
     buildContextCounter++;
     if (buildContextCounter == 1) {
       userAttendanceListGetter(selectedDayIndex + 1);
@@ -288,30 +296,64 @@ class _SubcriptionState extends State<Subcription> {
           SizedBox(
             height: MainApp.heightCal(50),
           ),
-          Container(
-            height: 70,
-            width: MediaQuery.of(context).size.width, // Adjust height as needed
-
-            child: ListView.builder(
-              itemCount: lastDate,
-              controller: _scrollController,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, dayIndex) {
-                return GestureDetector(
-                  onTap: () {
-                    selectedDayIndex = dayIndex;
-                    _scrollToSelectedDay(dayIndex);
-                    userAttendanceListGetter(dayIndex + 1);
-                    setState(() {});
-                  },
-                  child: CalendarDay(
-                    day: "${dayIndex + 1}",
-                    isSelected: selectedDayIndex == dayIndex,
-                  ),
-                );
+          // Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //     children: [
+          //       Text(" Todays Date: $formattedDateCurrent",style: GoogleFonts.quicksand(textStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.w700)),),
+               
+          //       Text(" Selected Date: $formattedDateSelected",style: GoogleFonts.quicksand(textStyle: TextStyle(fontSize: 15,fontWeight: FontWeight.w700)),),
+          //     ],
+          //   ),
+            const SizedBox(height: 10,),
+            HorizontalWeekCalendar(
+              minDate: DateTime(2000, 1, 1),
+              maxDate: DateTime(2030, 1, 31),
+              initialDate: selectedDate,
+              onDateChange: (date) {
+                setState(() {
+                  selectedDate = date;
+                });
               },
+              //showTopNavbar: false,
+              monthFormat: "MMMM yyyy",
+              showNavigationButtons: false,
+              weekStartFrom: WeekStartFrom.Sunday,
+              borderRadius: BorderRadius.circular(7),
+              activeBackgroundColor: Colors.orangeAccent,
+              activeTextColor: Colors.white,
+              inactiveBackgroundColor: Colors.orangeAccent.withOpacity(.3),
+              inactiveTextColor: Colors.white,
+              disabledTextColor: Colors.grey,
+              disabledBackgroundColor: Colors.grey.withOpacity(.3),
+              activeNavigatorColor: Colors.deepOrange,
+              inactiveNavigatorColor: Colors.grey,
+              monthColor: Colors.deepOrange,
             ),
-          ),
+            
+          // Container(
+          //   height: 70,
+          //   width: MediaQuery.of(context).size.width, // Adjust height as needed
+
+          //   child: ListView.builder(
+          //     itemCount: lastDate,
+          //     controller: _scrollController,
+          //     scrollDirection: Axis.horizontal,
+          //     itemBuilder: (context, dayIndex) {
+          //       return GestureDetector(
+          //         onTap: () {
+          //           selectedDayIndex = dayIndex;
+          //           _scrollToSelectedDay(dayIndex);
+          //           userAttendanceListGetter(dayIndex + 1);
+          //           setState(() {});
+          //         },
+          //         child: CalendarDay(
+          //           day: "${dayIndex + 1}",
+          //           isSelected: selectedDayIndex == dayIndex,
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // ),
           SizedBox(
             height: 50,
           ),
@@ -364,7 +406,7 @@ class _SubcriptionState extends State<Subcription> {
               ),
             ),
           ),
-        ],
+      ],
       ),
     );
   }

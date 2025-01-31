@@ -2,10 +2,8 @@ import 'dart:developer';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
-import 'package:messify_owner/pages/HomeScreen/Maindashboard.dart';
-import 'package:messify_owner/pages/BoardingPages/Splashscreen.dart';
 import 'package:messify_owner/pages/BoardingPages/firstonboardingscreen.dart';
+import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,9 +43,9 @@ class MainApp extends StatelessWidget {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
 
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FirstOnboardingScreen(),
+      home: Loginscreen(),
     );
   }
 }
