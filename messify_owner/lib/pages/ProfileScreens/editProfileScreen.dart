@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:messify_owner/main.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 
 class Myapp1 extends StatefulWidget {
   const Myapp1({super.key});
@@ -30,7 +31,7 @@ class _MyappState extends State<Myapp1> {
   void profileDetailsGetter() async {
     DocumentSnapshot response = await FirebaseFirestore.instance
         .collection('Messinfo')
-        .doc(MainApp.messName)
+        .doc(SessionData.messName)
         .get();
 
     profileDetailsMap['username'] = response['username'];
@@ -424,7 +425,7 @@ class _MyappState extends State<Myapp1> {
 
                         await FirebaseFirestore.instance
                             .collection('Messinfo')
-                            .doc(MainApp.messName)
+                            .doc(SessionData.messName)
                             .delete();
                         await FirebaseFirestore.instance
                             .collection('Messinfo')

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:messify_owner/main.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 
 class CustomPollPage extends StatefulWidget {
   @override
@@ -14,7 +15,7 @@ class _CustomPollPageState extends State<CustomPollPage> {
   void pollGetter() async {
     DocumentSnapshot _docSnap = await FirebaseFirestore.instance
         .collection('Poll')
-        .doc(MainApp.messName)
+        .doc(SessionData.messName)
         .get();
     if (_docSnap.exists) {
       poll = _docSnap.data() as Map<String, dynamic>;
@@ -50,7 +51,7 @@ class _CustomPollPageState extends State<CustomPollPage> {
   void pollToFirebaseAdder() async {
     await FirebaseFirestore.instance
         .collection('Poll')
-        .doc(MainApp.messName)
+        .doc(SessionData.messName)
         .set(poll);
   }
 

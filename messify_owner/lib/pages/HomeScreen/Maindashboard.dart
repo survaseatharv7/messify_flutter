@@ -5,6 +5,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/QRScreen/generateQR.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 import 'package:messify_owner/pages/SubscriptionScreens/Subcription.dart';
 import 'package:messify_owner/pages/MenuScreens/addMenuScreen.dart';
 import 'package:messify_owner/pages/ProfileScreens/profile.dart';
@@ -87,12 +88,18 @@ class _DashboardPageState extends State<DashboardPage> {
   bool isInterested = false;
   int _selectedTabIndex = 0;
 
+  @override
+  void initState() {
+    SessionData.getSessionData();
+    super.initState();
+  }
+
   Stream<int> getInterestedUserCountStream() {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     return FirebaseFirestore.instance
         .collection("Notify")
-        .doc(MainApp.messName)
+        .doc(SessionData.messName)
         .collection(formattedDate)
         .snapshots()
         .map((snapshot) => snapshot.docs.length);
@@ -101,7 +108,7 @@ class _DashboardPageState extends State<DashboardPage> {
   Stream<List<Map<String, dynamic>>>? listOfReviewStream() {
     return FirebaseFirestore.instance
         .collection('Feedback')
-        .doc(MainApp.messName)
+        .doc(SessionData.messName)
         .collection('UsersFeedback')
         .snapshots()
         .map((snapshot) {
@@ -116,34 +123,34 @@ class _DashboardPageState extends State<DashboardPage> {
     });
   }
 
-  Future<void> pollDataGetter() async {
-    DocumentSnapshot _docSnap = await FirebaseFirestore.instance
-        .collection('Poll')
-        .doc(MainApp.messName)
-        .collection('PollData')
-        .doc('$year-$month-$date')
-        .get();
+  // Future<void> pollDataGetter() async {
+  //   DocumentSnapshot _docSnap = await FirebaseFirestore.instance
+  //       .collection('Poll')
+  //       .doc(SessionData.messName)
+  //       .collection('PollData')
+  //       .doc('$year-$month-$date')
+  //       .get();
 
-    if (_docSnap.exists) {
-      pollDetails = _docSnap.data() as Map<String, dynamic>;
+  //   if (_docSnap.exists) {
+  //     pollDetails = _docSnap.data() as Map<String, dynamic>;
 
-      if (pollDetails.containsKey('options')) {
-        options = pollDetails['options']; // Extract the options array
+  //     if (pollDetails.containsKey('options')) {
+  //       options = pollDetails['options']; // Extract the options array
 
-        // Iterate and print titles and votes
-        for (int i = 0; i < pollDetails['options'].length; i++) {
-          String title =
-              pollDetails['options'][i]['title'] ?? 'No title available';
-          int votes = pollDetails['options'][i]['votes'] ?? 0;
-          optionList.add({'title ': title, 'votes': votes});
-        }
-        isPoll = true;
-      }
-    }
-    setState(() {});
-    print(pollDetails);
-    print(options);
-  }
+  //       // Iterate and print titles and votes
+  //       for (int i = 0; i < pollDetails['options'].length; i++) {
+  //         String title =
+  //             pollDetails['options'][i]['title'] ?? 'No title available';
+  //         int votes = pollDetails['options'][i]['votes'] ?? 0;
+  //         optionList.add({'title ': title, 'votes': votes});
+  //       }
+  //       isPoll = true;
+  //     }
+  //   }
+  //   setState(() {});
+  //   print(pollDetails);
+  //   print(options);
+  // }
 
   Widget interestedUserCountCard() {
     return StreamBuilder(
@@ -298,7 +305,7 @@ class _DashboardPageState extends State<DashboardPage> {
               width: MainApp.widthCal(10),
             ),
             Text(
-              "${MainApp.messName}",
+              "${SessionData.messName}",
               textAlign: TextAlign.center,
               style: GoogleFonts.poppins(
                   color: Colors.white,
@@ -377,7 +384,7 @@ class _DashboardPageState extends State<DashboardPage> {
                     //   StreamBuilder(
                     //       stream: FirebaseFirestore.instance
                     //           .collection('Poll')
-                    //           .doc(MainApp.messName)
+                    //           .doc(SessionData.messName)
                     //           .collection('PollData')
                     //           .doc('$year-$month-$date')
                     //           .snapshots(),

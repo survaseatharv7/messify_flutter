@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/models/breakfastModel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 
 class Breakfastmenu extends StatefulWidget {
   Breakfastmenu({super.key, required this.isSnackSelected});
@@ -22,7 +23,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
   void snackListGetter() async {
     QuerySnapshot response = await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Snack')
         .get();
     snackList.clear();
@@ -41,7 +42,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
   void itemRemover(int index) async {
     await FirebaseFirestore.instance
         .collection('Menu')
-        .doc("${MainApp.messName}")
+        .doc("${SessionData.messName}")
         .collection(widget.isSnackSelected ? 'Snack' : 'NonVeg')
         .doc(widget.isSnackSelected
             ? '${snackList[index]['item']}'
@@ -54,7 +55,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
   void nonvegListGetter() async {
     QuerySnapshot response = await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('NonVeg')
         .get();
     nonvegList.clear();
@@ -103,7 +104,9 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                 ? "Add or Edit Snacks"
                 : "Add or Edit Non-Veg Menus",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: MainApp.widthCal(20), fontWeight: FontWeight.w500),
+                color: Colors.black,
+                fontSize: MainApp.widthCal(20),
+                fontWeight: FontWeight.w500),
           ),
         ),
         body: ListView.builder(
@@ -144,7 +147,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                   ],
                 ),
                 child: Padding(
-                  padding:  EdgeInsets.all(MainApp.widthCal(8)),
+                  padding: EdgeInsets.all(MainApp.widthCal(8)),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
@@ -152,7 +155,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
-                      padding:  EdgeInsets.all(MainApp.widthCal(8)),
+                      padding: EdgeInsets.all(MainApp.widthCal(8)),
                       child: Row(
                         children: [
                           Text(
@@ -183,7 +186,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
             }),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.orange,
-          child:  Icon(
+          child: Icon(
             Icons.add,
             size: MainApp.widthCal(50),
             color: Colors.white,
@@ -198,7 +201,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
 
   Widget template(int index, String) {
     return Padding(
-      padding:  EdgeInsets.all(MainApp.widthCal(8)),
+      padding: EdgeInsets.all(MainApp.widthCal(8)),
       child: Container(
         width: MediaQuery.of(context).size.width,
         color: Colors.orange,
@@ -236,7 +239,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
 
           await FirebaseFirestore.instance
               .collection('Menu')
-              .doc(MainApp.messName)
+              .doc(SessionData.messName)
               .collection('Snack')
               .doc('${itemController.text.trim()}')
               .set(map);
@@ -253,7 +256,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
 
           await FirebaseFirestore.instance
               .collection('Menu')
-              .doc(MainApp.messName)
+              .doc(SessionData.messName)
               .collection('NonVeg')
               .doc('${itemController.text.trim()}')
               .set(map);
@@ -266,6 +269,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
           priceController.text.trim().isNotEmpty) {}
     }
     setState(() {});
+
     Navigator.of(context).pop();
   }
 
@@ -284,7 +288,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding:  EdgeInsets.all(MainApp.widthCal(8)),
+                    padding: EdgeInsets.all(MainApp.widthCal(8)),
                     child: Text(
                       "Add New Menu Here",
                       style: GoogleFonts.poppins(
@@ -294,7 +298,8 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(30), left: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(30), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
@@ -308,14 +313,18 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: itemController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -324,7 +333,8 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
@@ -338,7 +348,10 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
@@ -347,7 +360,8 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                             decimal: true),
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -356,7 +370,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.all(MainApp.widthCal(40)),
+                    padding: EdgeInsets.all(MainApp.widthCal(40)),
                     child: GestureDetector(
                       onTap: () {
                         if (!isEdit)
@@ -370,10 +384,11 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(20)),
                             color: Colors.orange),
                         child: Padding(
-                          padding:  EdgeInsets.all(MainApp.widthCal(15)),
+                          padding: EdgeInsets.all(MainApp.widthCal(15)),
                           child: Center(
                             child: Text(
                               "Submit",

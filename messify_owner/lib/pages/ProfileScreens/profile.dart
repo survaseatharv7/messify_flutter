@@ -5,7 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
 import 'package:messify_owner/pages/ProfileScreens/editProfileScreen.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 import 'package:messify_owner/pages/SubscriptionScreens/subscribedMembers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(const Myapp());
@@ -96,13 +98,13 @@ class _MessifyState extends State<Messify> {
                     Map<String, dynamic> Notifiydata = {
                       "Title": title,
                       "Description": description,
-                      "Messname": MainApp.messName
+                      "Messname": SessionData.messName
                     };
 
                     try {
                       FirebaseFirestore.instance
                           .collection("Notification")
-                          .doc(MainApp.messName)
+                          .doc(SessionData.messName)
                           .collection("Noticationdata")
                           .doc(formattedDate)
                           .set(Notifiydata);
@@ -146,6 +148,13 @@ class _MessifyState extends State<Messify> {
         );
       },
     );
+  }
+
+  Future<void> handleLogout() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    sharedPreferences.remove("login_time");
+    sharedPreferences.setBool("isLoggedIn", false);
   }
 
   @override
@@ -352,7 +361,7 @@ class _MessifyState extends State<Messify> {
                             ElevatedButton(
                               onPressed: () {
                                 Navigator.pop(context); // Close the dialog
-                                // Perform logout
+                                handleLogout();
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
                                         builder: (context) => Loginscreen()),
