@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -192,18 +194,51 @@ class _DashboardPageState extends State<DashboardPage> {
             return Center(child: Text("No Feedbacks Found"));
           }
           final feedbackList = snapshot.data!;
+          double average = 0.0;
+          int counterFiveStars = 0;
+          int counterFourStars = 0;
+          int counterThreeStars = 0;
+          int counterTwoStars = 0;
+          int counterOneStars = 0;
+
+          for (int i = 0; i < feedbackList.length; i++) {
+            switch (feedbackList[i]['starIndex']) {
+              case 1:
+                counterOneStars++;
+                break;
+              case 2:
+                counterTwoStars++;
+                break;
+              case 3:
+                counterThreeStars++;
+                break;
+              case 4:
+                counterFourStars++;
+                break;
+              case 5:
+                counterFiveStars++;
+                break;
+            }
+          }
+
+          average = ((counterOneStars * 1) +
+                  (counterTwoStars * 2) +
+                  (counterThreeStars * 3) +
+                  (counterFourStars * 4) +
+                  (counterFiveStars * 5)) /
+              feedbackList.length;
 
           return Column(
             children: [
               RatingSummary(
-                counter: 13,
-                average: 3.846,
+                counter: feedbackList.length,
+                average: average,
                 showAverage: true,
-                counterFiveStars: 5,
-                counterFourStars: 4,
-                counterThreeStars: 2,
-                counterTwoStars: 1,
-                counterOneStars: 1,
+                counterFiveStars: counterFiveStars,
+                counterFourStars: counterFourStars,
+                counterThreeStars: counterThreeStars,
+                counterTwoStars: counterTwoStars,
+                counterOneStars: counterOneStars,
               ),
               ListView.builder(
                 shrinkWrap: true,

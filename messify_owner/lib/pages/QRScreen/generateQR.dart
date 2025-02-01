@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/SessionMananger/session_data.dart';
+import 'package:messify_owner/widgets/custom_snackbar.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -50,12 +51,16 @@ class _GenerateQRCodePageState extends State<GenerateQRCodePage> {
                         .doc(formattedDate)
                         .set(data);
 
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Data Added Successfully")));
+                    CustomSnackBar.customSnackBar(
+                        context: context,
+                        text: "QR Code generated Successfully",
+                        color: Colors.blue);
                   } catch (e) {
                     print("Error adding data: ${e.toString()}");
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Error adding data: $e")));
+                    CustomSnackBar.customSnackBar(
+                        context: context,
+                        text: "Error Adding Data, try again",
+                        color: Colors.red);
                   }
                 },
                 child: Container(

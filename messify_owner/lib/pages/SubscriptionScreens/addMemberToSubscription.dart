@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/SessionMananger/session_data.dart';
+import 'package:messify_owner/widgets/custom_snackbar.dart';
 
 class AddMember extends StatefulWidget {
   final VoidCallback onUpdate;
@@ -270,9 +271,19 @@ class _AddMemberState extends State<AddMember> {
                                     .doc('${data['username']}')
                                     .set(data);
                                 widget.onUpdate();
+                                CustomSnackBar.customSnackBar(
+                                    context: context,
+                                    text:
+                                        "${userMap['username']} successfully added to Subscribed Members",
+                                    color: Colors.blue);
                                 Navigator.pop(context);
                               }
-                            } catch (e) {}
+                            } catch (e) {
+                              CustomSnackBar.customSnackBar(
+                                  context: context,
+                                  text: "Error occured try again",
+                                  color: Colors.red);
+                            }
                           },
                           child: Container(
                             width: MainApp.widthCal(250),
