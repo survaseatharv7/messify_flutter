@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/MenuScreens/breakfastSnackScreen.dart';
 import 'package:messify_owner/pages/MenuScreens/lunchDinnerScreen.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 import 'package:messify_owner/pages/pollPage.dart';
 
 class OwnerUI extends StatefulWidget {
@@ -451,7 +452,7 @@ class _OwnerUIState extends State<OwnerUI> {
 
                             await FirebaseFirestore.instance
                                 .collection('Poll')
-                                .doc(MainApp.messName)
+                                .doc(SessionData.messName)
                                 .collection('PollData')
                                 .doc('${year}-${month}-${date}')
                                 .set(map);

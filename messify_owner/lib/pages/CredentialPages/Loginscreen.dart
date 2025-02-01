@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,9 @@ import 'package:flutter/widgets.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/HomeScreen/Maindashboard.dart';
 import 'package:messify_owner/pages/CredentialPages/Registrationscreen.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
+import 'package:messify_owner/widgets/custom_snackbar.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class Loginscreen extends StatelessWidget {
@@ -70,7 +75,7 @@ class Loginscreen extends StatelessWidget {
                 decoration: InputDecoration(
                   prefixIcon: const Icon(Icons.supervised_user_circle),
                   label: const Text(
-                    "Enter Username",
+                    "Enter Email",
                   ),
                   border: OutlineInputBorder(
                       borderRadius:
@@ -119,16 +124,37 @@ class Loginscreen extends StatelessWidget {
                         }
                       }
 
-                      MainApp.messName = response.docs[index]['username'];
+                      SessionData.storeSessionData(
+                          messName: response.docs[index]['username'],
+                          isLoggedIn: true);
+                      SessionData.getSessionData();
 
-                      MainApp.isLoggedIn = true;
+                      CustomSnackBar.customSnackBar(
+                          context: context,
+                          text: "Successfully Logged In",
+                          color: Colors.blue);
+
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => Maindashboard()));
+                    } else {
+                      CustomSnackBar.customSnackBar(
+                          context: context,
+                          text: "Please Fill all the Fields",
+                          color: Colors.red);
                     }
                   } on FirebaseAuthException catch (error) {
-                    print(error.message);
+                    CustomSnackBar.customSnackBar(
+                        context: context,
+                        text: "Invalid Email or Password",
+                        color: Colors.red);
+                    log('${error.message}');
+                  } catch (e) {
+                    CustomSnackBar.customSnackBar(
+                        context: context,
+                        text: "An error occured something went wrong",
+                        color: Colors.red);
                   }
                 },
                 child: Container(

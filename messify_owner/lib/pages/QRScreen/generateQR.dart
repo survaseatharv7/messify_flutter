@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:messify_owner/main.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
@@ -35,7 +36,7 @@ class _GenerateQRCodePageState extends State<GenerateQRCodePage> {
                   DateTime now = DateTime.now();
                   String formattedDate = DateFormat('yyyy-MM-dd').format(now);
                   setState(() {
-                    qrData = "$formattedDate ${MainApp.messName}";
+                    qrData = "$formattedDate ${SessionData.messName}";
                   });
                   print(qrData);
                   Map<String, dynamic> data = {
@@ -44,7 +45,7 @@ class _GenerateQRCodePageState extends State<GenerateQRCodePage> {
                   try {
                     await FirebaseFirestore.instance
                         .collection("Qr Data")
-                        .doc(MainApp.messName)
+                        .doc(SessionData.messName)
                         .collection("Datewise Data")
                         .doc(formattedDate)
                         .set(data);

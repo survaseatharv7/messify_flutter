@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/models/lastDateOfMonth.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 import 'package:messify_owner/pages/SubscriptionScreens/subscribedMembers.dart';
 
 import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
@@ -175,7 +176,7 @@ class _SubcriptionState extends State<Subcription> {
   //   try {
   //     QuerySnapshot response = await FirebaseFirestore.instance
   //         .collection('Attendence')
-  //         .doc('${MainApp.messName}')
+  //         .doc('${SessionData.messName}')
   //         .collection(
   //             '${DateTime.now().year}-${DateFormat("MM").format(DateTime.now())}-${DateFormat("dd").format(date)} ')
   //         .get();
@@ -201,7 +202,7 @@ class _SubcriptionState extends State<Subcription> {
   Stream<List<Map<String, dynamic>>> userAttendanceListStream(DateTime date) {
     return FirebaseFirestore.instance
         .collection('Attendence')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection(
             '${DateFormat('yyyy').format(date)}-${DateFormat("MM").format(date)}-${DateFormat("dd").format(date)} ')
         .snapshots()

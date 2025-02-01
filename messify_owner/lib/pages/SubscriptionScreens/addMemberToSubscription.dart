@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 
 class AddMember extends StatefulWidget {
   final VoidCallback onUpdate;
@@ -264,7 +265,7 @@ class _AddMemberState extends State<AddMember> {
                                 };
                                 await FirebaseFirestore.instance
                                     .collection('subscribedUsers')
-                                    .doc('${MainApp.messName}')
+                                    .doc('${SessionData.messName}')
                                     .collection('allSubscribedUsers')
                                     .doc('${data['username']}')
                                     .set(data);
