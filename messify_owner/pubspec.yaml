@@ -19,6 +19,7 @@ dependencies:
   qr_flutter: ^4.1.0
   rating_summary: ^1.0.3+1
   provider: ^6.1.2
+  horizontal_week_calendar: ^0.0.15
 
 dev_dependencies:
   flutter_test:
