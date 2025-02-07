@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -38,12 +39,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     'No Description'; // Get notification description
 
                 return Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  margin: EdgeInsets.symmetric(vertical: 8.h, horizontal: 16.w),
                   elevation: 6,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(
-                        16), // Rounded corners for a smoother look
+                        16.r), // Rounded corners for a smoother look
                   ),
                   child: Container(
                     decoration: BoxDecoration(
@@ -56,42 +56,42 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(
-                          16), // Rounded corners for container
+                          16.r), // Rounded corners for container
                     ),
                     child: ListTile(
-                      contentPadding: const EdgeInsets.all(
-                          16), // Padding around the content
-                      leading: const Icon(
+                      contentPadding:
+                          EdgeInsets.all(16.w), // Padding around the content
+                      leading: Icon(
                         Icons.notifications_active,
                         color: Colors.white,
-                        size: 30, // Icon size
+                        size: 30.sp, // Icon size
                       ),
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             "$messName ($formatteddate)", // Display mess name with formatted date
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: 18.sp,
                               color: Colors.white,
                             ),
                           ),
-                          const SizedBox(height: 6),
+                          SizedBox(height: 6.h),
                           Text(
                             description,
-                            style: const TextStyle(
-                              fontSize: 17,
+                            style: TextStyle(
+                              fontSize: 17.sp,
                               fontWeight: FontWeight.w600,
                               color: Colors.white70,
                             ),
                           ),
                         ],
                       ),
-                      trailing: const Icon(
+                      trailing: Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.white,
-                        size: 20,
+                        size: 20.sp,
                       ),
                     ),
                   ),

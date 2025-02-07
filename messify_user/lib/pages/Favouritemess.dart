@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:messify/pages/ParticularMessScreen.dart';
 import 'package:animate_do/animate_do.dart'; // Import animation package
@@ -57,7 +58,7 @@ class _FavouritemessState extends State<Favouritemess> {
           "Favourite Mess",
           style: GoogleFonts.poppins(
             color: Colors.white,
-            fontSize: 18,
+            fontSize: 18.sp,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -67,16 +68,16 @@ class _FavouritemessState extends State<Favouritemess> {
           ? Center(
               child: Lottie.asset(
                 'assets/foodloader.json',
-                height: 400,
-                width: 400,
+                height: 400.h,
+                width: 400.w,
                 fit: BoxFit.contain,
               ),
             )
           : favouriteMessList.isEmpty
-              ? const Center(
+              ? Center(
                   child: Text(
                     "No Favourite Mess uploaded",
-                    style: TextStyle(fontSize: 18, color: Colors.black),
+                    style: TextStyle(fontSize: 18.sp, color: Colors.black),
                   ),
                 )
               : ListView.builder(
@@ -91,7 +92,7 @@ class _FavouritemessState extends State<Favouritemess> {
                       child: FadeIn(
                         duration: const Duration(milliseconds: 500),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(10.w),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context)
@@ -104,11 +105,11 @@ class _FavouritemessState extends State<Favouritemess> {
                               height: 125,
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 223, 220, 220),
-                                borderRadius: BorderRadius.circular(15),
+                                borderRadius: BorderRadius.circular(15.r),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.1),
-                                    blurRadius: 10,
+                                    blurRadius: 10.r,
                                     offset: const Offset(0, 5),
                                   ),
                                 ],
@@ -118,8 +119,8 @@ class _FavouritemessState extends State<Favouritemess> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Container(
-                                      height: 100,
-                                      width: 100,
+                                      height: 100.h,
+                                      width: 100.w,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(15),
                                         color: const Color.fromRGBO(
@@ -128,13 +129,14 @@ class _FavouritemessState extends State<Favouritemess> {
                                           BoxShadow(
                                             color:
                                                 Colors.black.withOpacity(0.1),
-                                            blurRadius: 10,
+                                            blurRadius: 10.r,
                                             offset: const Offset(0, 5),
                                           ),
                                         ],
                                       ),
                                       child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(15),
+                                        borderRadius:
+                                            BorderRadius.circular(15.r),
                                         child: Image.asset(
                                           "assets/thali.jpeg", // Replace with the correct image
                                           fit: BoxFit.cover,
@@ -142,9 +144,9 @@ class _FavouritemessState extends State<Favouritemess> {
                                       ),
                                     ),
                                   ),
-                                  const SizedBox(width: 15),
+                                  SizedBox(width: 15.w),
                                   Padding(
-                                    padding: const EdgeInsets.only(top: 15),
+                                    padding: EdgeInsets.only(top: 15.h),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -155,40 +157,40 @@ class _FavouritemessState extends State<Favouritemess> {
                                               Icons.restaurant,
                                               color: Colors.green,
                                             ),
-                                            const SizedBox(width: 5),
+                                            SizedBox(width: 5.w),
                                             Text(
                                               favouriteMessList[index],
                                               style: GoogleFonts.poppins(
                                                 color: Colors.black,
-                                                fontSize: 16,
+                                                fontSize: 16.sp,
                                                 fontWeight: FontWeight.w700,
                                               ),
                                             ),
                                           ],
                                         ),
-                                        const SizedBox(height: 7),
+                                        SizedBox(height: 7.h),
                                         Text(
                                           "Popular Dishes: DRY GOBI | RAJMA",
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 14.sp,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.grey[600],
                                           ),
                                         ),
-                                        const SizedBox(height: 7),
+                                        SizedBox(height: 7.h),
                                         Text(
                                           "Location: Pune",
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 14.sp,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.grey[600],
                                           ),
                                         ),
-                                        const SizedBox(height: 7),
+                                        SizedBox(height: 7.h),
                                         Text(
                                           "1.3 km",
                                           style: GoogleFonts.poppins(
-                                            fontSize: 14,
+                                            fontSize: 14.sp,
                                             fontWeight: FontWeight.w500,
                                             color: Colors.grey[600],
                                           ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:messify/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,7 +41,7 @@ class _RegistrationState extends State<Registration> {
           "Create Account",
           style: GoogleFonts.poppins(
               color: Colors.black,
-              fontSize: MainApp.widthCal(20),
+              fontSize: 20.sp,
               fontWeight: FontWeight.w400),
         ),
       ),
@@ -56,8 +57,8 @@ class _RegistrationState extends State<Registration> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                    height: MainApp.heightCal(150),
-                    width: MainApp.widthCal(150),
+                    height: 150.h,
+                    width: 150.w,
                     child: Image.asset(
                       "assets/reg.jpeg",
                       fit: BoxFit.cover,
@@ -68,25 +69,22 @@ class _RegistrationState extends State<Registration> {
                     "Just One Step Away ",
                     style: GoogleFonts.poppins(
                         color: Colors.black,
-                        fontSize: MainApp.widthCal(25),
+                        fontSize: 25.sp,
                         fontWeight: FontWeight.w600),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: MainApp.heightCal(8)),
+                  padding: EdgeInsets.only(top: 8.h),
                   child: Text(
                     "You need to register yourself before getting started ",
                     style: GoogleFonts.poppins(
                         color: Colors.black,
-                        fontSize: MainApp.widthCal(13),
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w300),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: MainApp.widthCal(20),
-                      right: MainApp.widthCal(20),
-                      top: MainApp.heightCal(15)),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: TextField(
@@ -95,20 +93,16 @@ class _RegistrationState extends State<Registration> {
                           prefixIcon: Icon(
                             Icons.contacts_rounded,
                             color: Colors.black,
-                            size: MainApp.widthCal(20),
+                            size: 20.sp,
                           ),
                           hintText: "   Enter Your Name",
                           border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(MainApp.widthCal(10)))),
+                              borderRadius: BorderRadius.circular(10.r))),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: MainApp.widthCal(20),
-                      right: MainApp.widthCal(20),
-                      top: MainApp.heightCal(15)),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: TextField(
@@ -117,20 +111,16 @@ class _RegistrationState extends State<Registration> {
                           prefixIcon: Icon(
                             Icons.contacts_rounded,
                             color: Colors.black,
-                            size: MainApp.widthCal(20),
+                            size: 20.sp,
                           ),
                           hintText: "   Enter Username",
                           border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(MainApp.widthCal(10)))),
+                              borderRadius: BorderRadius.circular(20.r))),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: MainApp.widthCal(20),
-                      right: MainApp.widthCal(20),
-                      top: MainApp.heightCal(15)),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: TextField(
@@ -139,20 +129,16 @@ class _RegistrationState extends State<Registration> {
                           prefixIcon: Icon(
                             Icons.call,
                             color: Colors.black,
-                            size: MainApp.widthCal(20),
+                            size: 20.sp,
                           ),
                           hintText: "   Enter Phone Number",
                           border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(MainApp.widthCal(10)))),
+                              borderRadius: BorderRadius.circular(10.r))),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: MainApp.widthCal(20),
-                      right: MainApp.widthCal(20),
-                      top: MainApp.heightCal(15)),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: TextField(
@@ -161,20 +147,16 @@ class _RegistrationState extends State<Registration> {
                           prefixIcon: Icon(
                             Icons.mail,
                             color: Colors.black,
-                            size: MainApp.widthCal(20),
+                            size: 20.sp,
                           ),
                           hintText: "   Enter Mail",
                           border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(MainApp.widthCal(10)))),
+                              borderRadius: BorderRadius.circular(20.r))),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: MainApp.widthCal(20),
-                      right: MainApp.widthCal(20),
-                      top: MainApp.heightCal(15)),
+                  padding: EdgeInsets.only(left: 20.w, right: 20.w, top: 15.h),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: TextField(
@@ -183,21 +165,17 @@ class _RegistrationState extends State<Registration> {
                           prefixIcon: Icon(
                             Icons.lock,
                             color: Colors.black,
-                            size: MainApp.widthCal(20),
+                            size: 20.sp,
                           ),
                           hintText: "   Enter Password",
                           border: OutlineInputBorder(
-                              borderRadius:
-                                  BorderRadius.circular(MainApp.widthCal(10)))),
+                              borderRadius: BorderRadius.circular(10.w))),
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(
-                      left: MainApp.widthCal(54),
-                      right: MainApp.widthCal(54),
-                      top: MainApp.heightCal(30),
-                      bottom: MainApp.heightCal(30)),
+                      left: 54.w, right: 54.w, top: 30.h, bottom: 30.h),
                   child: GestureDetector(
                     onTap: () async {
                       try {
@@ -238,18 +216,17 @@ class _RegistrationState extends State<Registration> {
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(MainApp.widthCal(10)),
+                        borderRadius: BorderRadius.circular(10.r),
                         color: Colors.black,
                       ),
                       child: Center(
                         child: Padding(
-                          padding: EdgeInsets.all(MainApp.widthCal(8)),
+                          padding: EdgeInsets.all(8.w),
                           child: Text(
                             "Register",
                             style: GoogleFonts.poppins(
                                 color: const Color.fromARGB(255, 244, 220, 0),
-                                fontSize: MainApp.widthCal(15),
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w700),
                           ),
                         ),

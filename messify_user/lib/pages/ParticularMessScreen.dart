@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -78,7 +79,7 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
           widget.username,
           style: GoogleFonts.poppins(
             color: const Color.fromARGB(255, 223, 202, 6),
-            fontSize: 20,
+            fontSize: 20.sp,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -94,9 +95,9 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                   return HomePage(username: widget.username);
                 }));
               },
-              child: const Icon(
+              child: Icon(
                 Icons.qr_code_scanner_outlined,
-                size: 30,
+                size: 30.sp,
                 color: Colors.black,
               ),
             ),
@@ -115,12 +116,12 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                     widget.username,
                     style: GoogleFonts.poppins(
                       color: Colors.black,
-                      fontSize: 24,
+                      fontSize: 24.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                   SizedBox(
-                    width: MainApp.widthCal(30),
+                    width: 30.w,
                   ),
                   GestureDetector(
                     onTap: () async {
@@ -129,7 +130,7 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                           context: context,
                           builder: (context) => AlertDialog(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(15.r),
                             ),
                             backgroundColor: Colors.orange.shade100,
                             title: Column(
@@ -138,15 +139,15 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                                 Center(
                                   child: Lottie.asset(
                                     'assets/notification.json',
-                                    height: 300,
-                                    width: 300,
+                                    height: 300.h,
+                                    width: 300.w,
                                   ),
                                 ),
-                                const SizedBox(height: 5),
-                                const Text(
+                                SizedBox(height: 5.h),
+                                Text(
                                   "Thank you for notifying",
                                   style: TextStyle(
-                                    fontSize: 23,
+                                    fontSize: 23.sp,
                                     fontWeight: FontWeight.w900,
                                     color: Colors.black87,
                                   ),
@@ -187,19 +188,19 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                                     });
                                   },
                                   child: Container(
-                                    height: MainApp.heightCal(40),
-                                    width: MainApp.widthCal(150),
+                                    height: 40.h,
+                                    width: 150.w,
                                     decoration: BoxDecoration(
                                       color: const Color.fromARGB(
                                           255, 245, 136, 3),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: BorderRadius.circular(10.r),
                                     ),
                                     alignment: Alignment.center,
-                                    child: const Text(
+                                    child: Text(
                                       "OK",
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 18,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -248,18 +249,18 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                       }
                     },
                     child: Container(
-                      height: MainApp.heightCal(40),
-                      width: MainApp.widthCal(150),
+                      height: 40.h,
+                      width: 150.w,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 245, 136, 3),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.r),
                       ),
                       alignment: Alignment.center,
                       child: Text(
                         buttonText,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -267,37 +268,37 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5.h),
               Row(
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.restaurant_menu,
                     color: Color.fromARGB(255, 223, 202, 6),
-                    size: 22,
+                    size: 22.sp,
                   ),
-                  const SizedBox(width: 5),
+                  SizedBox(width: 5.w),
                   Text(
                     "Non Veg",
                     style: GoogleFonts.poppins(
                       color: Colors.black,
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 5),
+              SizedBox(height: 5.h),
               Text(
                 "1.3 km",
                 style: GoogleFonts.poppins(
                   color: Colors.black,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              const SizedBox(height: 15),
+              SizedBox(height: 15.h),
               Container(
-                height: 250,
+                height: 250.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -310,23 +311,23 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildMenuButton("Snacks Menu", 'Snack'),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     _buildMenuButton("Lunch Menu", 'Lunch'),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     _buildMenuButton("Dinner Menu", 'Dinner'),
-                    const SizedBox(width: 10),
+                    SizedBox(width: 10.w),
                     _buildMenuButton("Nonveg Menu", 'NonVeg'),
                   ],
                 ),
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: menulist.isNotEmpty
@@ -334,20 +335,20 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                         if (selectedMenu == 'Snack' ||
                             selectedMenu == 'NonVeg') {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            padding: EdgeInsets.symmetric(vertical: 5.w),
                             child: Row(
                               children: [
-                                const Icon(
+                                Icon(
                                   Icons.check_circle,
                                   color: Colors.green,
-                                  size: 18,
+                                  size: 18.sp,
                                 ),
-                                const SizedBox(width: 10),
+                                SizedBox(width: 10.w),
                                 Expanded(
                                   child: Text(
                                     "${item['Snack']} - ₹${item['price']}",
                                     style: GoogleFonts.poppins(
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -358,69 +359,69 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                         } else if (selectedMenu == 'Lunch' ||
                             selectedMenu == 'Dinner') {
                           return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
+                            padding: EdgeInsets.symmetric(vertical: 5.w),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.check_circle,
                                       color: Colors.green,
-                                      size: 18,
+                                      size: 18.sp,
                                     ),
                                     const SizedBox(width: 5),
                                     Text(
                                       "Sabji 1 - ${item['sabji1']}",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.check_circle,
                                       color: Colors.green,
-                                      size: 18,
+                                      size: 18.sp,
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5.w),
                                     Text(
                                       "Sabji 2 - ${item['sabji2']}",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.check_circle,
                                       color: Colors.green,
-                                      size: 18,
+                                      size: 18.sp,
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5.w),
                                     Text(
                                       "Dal - ${item['dal']}",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Row(
                                   children: [
@@ -433,65 +434,65 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                                     Text(
                                       "Chapati - ${item['chapati']}",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.check_circle,
                                       color: Colors.green,
-                                      size: 18,
+                                      size: 18.sp,
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5.w),
                                     Text(
                                       "Rice - ${item['rice']}",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 10),
+                                SizedBox(height: 10.h),
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.check_circle,
                                       color: Colors.green,
-                                      size: 18,
+                                      size: 18.sp,
                                     ),
-                                    const SizedBox(width: 5),
+                                    SizedBox(width: 5.w),
                                     Text(
                                       "Sweet - ₹${item['sweet']}",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
                                   ],
                                 ),
-                                const SizedBox(
-                                  height: 10,
+                                SizedBox(
+                                  height: 10.h,
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(
+                                    Icon(
                                       Icons.check_circle,
-                                      color: Colors.green,
-                                      size: 18,
+                                      color: Color.fromRGBO(76, 175, 80, 1),
+                                      size: 18.sp,
                                     ),
                                     const SizedBox(width: 5),
                                     Text(
                                       "Price - ₹${item['price']}",
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w600,
                                       ),
                                     ),
@@ -504,50 +505,50 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                         return const SizedBox();
                       }).toList()
                     : [
-                        const Text(
+                        Text(
                           'Menu not Updated Yet',
                           style: TextStyle(
                             color: Colors.red,
-                            fontSize: 16,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
               ),
-              const SizedBox(height: 7),
+              SizedBox(height: 7.h),
               _buildDetailsSection(
                   "Address", "Matrix Parking near SCOE behind new bus stand."),
               _buildDetailsSection("Morning Time", "7.00 AM TO 11.00 AM"),
               _buildDetailsSection("Evening Time", "7.00 PM TO 11.00 PM"),
               _buildDetailsSection("Contact Number", phonenumber),
-              SizedBox(height: MainApp.heightCal(10)),
+              SizedBox(height: 10.h),
               if (isPoll) CustomPollPage(messName: widget.username),
             ],
           ),
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 30, right: 15),
+        padding: EdgeInsets.only(bottom: 30.h, right: 15.w),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             GestureDetector(
               onTap: () => reviewBottomSheet(),
               child: Container(
-                height: 36,
+                height: 36.h,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(25.r),
                   color: Colors.orange,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(8.r),
                   child: Row(
                     children: [
-                      const Padding(
-                        padding: EdgeInsets.only(right: 6),
+                      Padding(
+                        padding: EdgeInsets.only(right: 6.w),
                         child: Icon(
                           Icons.edit,
-                          size: 20,
+                          size: 20.sp,
                           color: Colors.white,
                         ),
                       ),
@@ -555,7 +556,7 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                         "Write a review",
                         style: GoogleFonts.poppins(
                           color: Colors.white,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -580,43 +581,43 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
         return StatefulBuilder(
           builder: (BuildContext context, StateSetter setModalState) {
             return Container(
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(25),
+                  topLeft: Radius.circular(20.r),
+                  topRight: Radius.circular(25.r),
                 ),
                 color: Color.fromRGBO(249, 249, 249, 1),
               ),
               child: Padding(
                 padding: EdgeInsets.only(
                   bottom: MediaQuery.of(context).viewInsets.bottom,
-                  left: 15,
-                  right: 15,
+                  left: 15.w,
+                  right: 15.r,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 10),
+                      padding: EdgeInsets.only(top: 10.h),
                       child: Container(
-                        height: 6,
-                        width: 60,
+                        height: 6.h,
+                        width: 60.w,
                         color: const Color.fromRGBO(155, 155, 155, 1),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 20.h),
                       child: Text(
                         "What is your rate?",
                         style: GoogleFonts.poppins(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 15),
+                      padding: EdgeInsets.only(top: 15.h),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: List.generate(5, (index) {
@@ -636,21 +637,21 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 20),
+                      padding: EdgeInsets.only(top: 20.h),
                       child: Text(
                         "Please share your opinion",
                         style: GoogleFonts.poppins(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: EdgeInsets.all(10.w),
                       child: Container(
                         color: Colors.white,
-                        height: 150,
+                        height: 150.h,
                         child: TextField(
                           controller: reviewController,
                           maxLines: null,
@@ -664,7 +665,7 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding: EdgeInsets.all(20.w),
                       child: GestureDetector(
                         onTap: () async {
                           if (selectedStarIndex >= 0 &&
@@ -729,17 +730,17 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
                         child: Container(
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20.r),
                             color: Colors.orange,
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(15),
+                            padding: EdgeInsets.all(15.w),
                             child: Center(
                               child: Text(
                                 "SEND REVIEW",
                                 style: GoogleFonts.poppins(
                                   color: Colors.white,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
@@ -777,7 +778,7 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
         text,
         style: GoogleFonts.poppins(
           color: Colors.white,
-          fontSize: 16,
+          fontSize: 16.sp,
           fontWeight: FontWeight.w600,
         ),
       ),
@@ -828,13 +829,13 @@ class _ParticularmessscreenState extends State<Particularmessscreen> {
             title,
             style: GoogleFonts.poppins(
               color: Colors.black,
-              fontSize: 16,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w700,
             ),
           ),
-          const SizedBox(height: 7),
+          SizedBox(height: 7.h),
           Text(content),
-          const SizedBox(height: 10),
+          SizedBox(height: 10.h),
         ],
       ),
     );

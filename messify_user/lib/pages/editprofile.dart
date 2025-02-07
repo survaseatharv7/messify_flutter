@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:messify/main.dart';
 import 'package:messify/pages/sessionData.dart';
@@ -97,7 +98,7 @@ class _MyappState extends State<Myapp1> {
               //  mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  height: 200,
+                  height: 200.h,
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
@@ -112,8 +113,8 @@ class _MyappState extends State<Myapp1> {
                     alignment: Alignment.center,
                     children: [
                       Positioned(
-                        top: 30,
-                        left: 10,
+                        top: 30.h,
+                        left: 10.w,
                         child: GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
@@ -123,7 +124,7 @@ class _MyappState extends State<Myapp1> {
                           child: Container(
                             child: Icon(
                               Icons.arrow_back_ios_new,
-                              size: 30,
+                              size: 30.sp,
                               color: Colors.white,
                             ),
                           ),
@@ -131,7 +132,7 @@ class _MyappState extends State<Myapp1> {
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 150,
+                        height: 150.h,
                         //      decoration: const BoxDecoration(
                         //   gradient: LinearGradient(
                         //     colors: [
@@ -146,11 +147,11 @@ class _MyappState extends State<Myapp1> {
                       Positioned(
                         bottom: 0,
                         child: Container(
-                          height: 122,
-                          width: 122,
+                          height: 122.h,
+                          width: 122.w,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(color: Colors.white, width: 5),
+                            border: Border.all(color: Colors.white, width: 5.w),
                           ),
                           child: Image.asset(
                             "assets/avtar.png",
@@ -191,21 +192,21 @@ class _MyappState extends State<Myapp1> {
                 // ),
 
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(left: 36.w, top: 20.h),
                   child: Row(
                     children: [
                       Text(
                         "Username",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(left: 36.w, right: 36.w, top: 2.h),
                   child: Container(
                     child: TextField(
                       readOnly: true,
@@ -219,21 +220,21 @@ class _MyappState extends State<Myapp1> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(left: 36.w, top: 20.h),
                   child: Row(
                     children: [
                       Text(
                         "Name",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(left: 36.w, right: 36.w, top: 2.h),
                   child: Container(
                     child: TextField(
                       controller: _nameController,
@@ -246,85 +247,85 @@ class _MyappState extends State<Myapp1> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(left: 36.w, top: 20.h),
                   child: Row(
                     children: [
                       Text(
                         "Email I'd",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(left: 36.w, right: 36.w, top: 2.h),
                   child: Container(
                     child: TextField(
                       controller: _emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8.r),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(left: 36.w, top: 20.h),
                   child: Row(
                     children: [
                       Text(
                         "Phone Number",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, right: 36, top: 2),
+                  padding: EdgeInsets.only(left: 36.w, right: 36.w, top: 2.h),
                   child: Container(
                     child: TextField(
                       controller: _phoneNumberController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8.r),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 36, top: 20),
+                  padding: EdgeInsets.only(left: 36.w, top: 20.h),
                   child: Row(
                     children: [
                       Text(
                         "Password",
                         style: GoogleFonts.poppins(
                             color: Colors.black,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                    left: 36,
-                    right: 36,
-                    top: 2,
+                  padding: EdgeInsets.only(
+                    left: 36.w,
+                    right: 36.w,
+                    top: 2.h,
                   ),
                   child: Container(
                     child: TextField(
                       controller: _passwordController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(8.r),
                             borderSide: BorderSide(color: Colors.black)),
                       ),
                     ),
@@ -332,8 +333,8 @@ class _MyappState extends State<Myapp1> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 54, right: 54, top: 30, bottom: 30),
+                  padding: EdgeInsets.only(
+                      left: 54.w, right: 54.w, top: 30.h, bottom: 30.h),
                   child: GestureDetector(
                     onTap: () async {
                       if (_emailController.text.isNotEmpty &&
@@ -371,12 +372,12 @@ class _MyappState extends State<Myapp1> {
                       ),
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: EdgeInsets.all(8.w),
                           child: Text(
                             "Update",
                             style: GoogleFonts.poppins(
                                 color: Colors.white,
-                                fontSize: 15,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w700),
                           ),
                         ),

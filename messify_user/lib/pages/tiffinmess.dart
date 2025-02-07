@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:messify/pages/ParticularMessScreen.dart';
@@ -52,7 +53,7 @@ class _TiffinmessState extends State<Tiffinmess> {
           "Tiffin Mess - Home Delivery",
           style: GoogleFonts.poppins(
             color: Colors.black,
-            fontSize: 16,
+            fontSize: 16.sp,
             fontWeight: FontWeight.w700,
           ),
         ),
@@ -61,8 +62,8 @@ class _TiffinmessState extends State<Tiffinmess> {
           ? Center(
               child: Lottie.asset(
                 'assets/foodloader.json',
-                height: 400,
-                width: 400,
+                height: 400.h,
+                width: 400.w,
                 fit: BoxFit.contain,
               ),
             )
@@ -77,11 +78,12 @@ class _TiffinmessState extends State<Tiffinmess> {
                     // Staggered delay animation for each card
                     return SlideInUp(
                       duration: const Duration(milliseconds: 500),
-                      delay: Duration(milliseconds: index * 100), // Staggered delay
+                      delay: Duration(
+                          milliseconds: index * 100), // Staggered delay
                       child: FadeIn(
                         duration: const Duration(milliseconds: 500),
                         child: Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: EdgeInsets.all(10.r),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.of(context)
@@ -93,15 +95,16 @@ class _TiffinmessState extends State<Tiffinmess> {
                             child: Padding(
                               padding: const EdgeInsets.all(6.0),
                               child: Container(
-                                height: 180,
+                                height: 180.h,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15),
-                                  color: const Color.fromARGB(255, 233, 243, 249),
+                                  borderRadius: BorderRadius.circular(15.r),
+                                  color:
+                                      const Color.fromARGB(255, 233, 243, 249),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 6,
-                                      spreadRadius: 2,
+                                      blurRadius: 6.r,
+                                      spreadRadius: 2.r,
                                     ),
                                   ],
                                 ),
@@ -110,17 +113,19 @@ class _TiffinmessState extends State<Tiffinmess> {
                                     Padding(
                                       padding: const EdgeInsets.all(10.0),
                                       child: Container(
-                                        height: 100,
-                                        width: 100,
+                                        height: 100.h,
+                                        width: 100.w,
                                         decoration: BoxDecoration(
                                           border: Border.all(
-                                              color: Colors.black, width: 2),
-                                          borderRadius: BorderRadius.circular(15),
+                                              color: Colors.black, width: 2.w),
+                                          borderRadius:
+                                              BorderRadius.circular(15.r),
                                           color: const Color.fromRGBO(
                                               233, 243, 249, 100),
                                         ),
                                         child: ClipRRect(
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15.r),
                                           child: Image.asset(
                                             "assets/thali.jpeg", // Replace with correct image
                                             fit: BoxFit.cover,
@@ -128,10 +133,10 @@ class _TiffinmessState extends State<Tiffinmess> {
                                         ),
                                       ),
                                     ),
-                                    const SizedBox(width: 10),
+                                    SizedBox(width: 10.w),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 15),
+                                        padding: EdgeInsets.only(top: 15.h),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -142,62 +147,62 @@ class _TiffinmessState extends State<Tiffinmess> {
                                                   Icons.delivery_dining,
                                                   color: Colors.orange,
                                                 ),
-                                                const SizedBox(width: 5),
+                                                SizedBox(width: 5.w),
                                                 Text(
                                                   tiffinmess[index],
                                                   style: GoogleFonts.poppins(
                                                     color: Colors.black,
-                                                    fontSize: 16,
+                                                    fontSize: 16.sp,
                                                     fontWeight: FontWeight.w700,
                                                   ),
                                                 ),
                                               ],
                                             ),
-                                            const SizedBox(height: 7),
+                                            SizedBox(height: 7.h),
                                             Text(
                                               "Popular Dishes: CHICKEN MASALA",
                                               style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize: 14.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.grey[600],
                                               ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
-                                            const SizedBox(height: 7),
+                                            SizedBox(height: 7.h),
                                             Text(
                                               "Delivery: Available 7 AM - 9 PM",
                                               style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize: 14.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.green[600],
                                               ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
-                                            const SizedBox(height: 7),
+                                            SizedBox(height: 7.h),
                                             Text(
                                               "Free Delivery on Orders over ₹500",
                                               style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize: 14.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.blue[600],
                                               ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
-                                            const SizedBox(height: 7),
+                                            SizedBox(height: 7.h),
                                             Text(
                                               "Pune",
                                               style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize: 14.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.grey[600],
                                               ),
                                               overflow: TextOverflow.ellipsis,
                                             ),
-                                            const SizedBox(height: 7),
+                                            SizedBox(height: 7.h),
                                             Text(
                                               "1.3 km",
                                               style: GoogleFonts.poppins(
-                                                fontSize: 14,
+                                                fontSize: 14.sp,
                                                 fontWeight: FontWeight.w500,
                                                 color: Colors.grey[600],
                                               ),

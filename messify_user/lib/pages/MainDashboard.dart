@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:messify/main.dart';
@@ -132,8 +133,8 @@ class _MaindashboardState extends State<Maindashboard> {
           ? Center(
               child: Lottie.asset(
                 'assets/login.json',
-                height: 400,
-                width: 400,
+                height: 400.h,
+                width: 400.w,
                 fit: BoxFit.contain,
               ),
             )
@@ -143,8 +144,8 @@ class _MaindashboardState extends State<Maindashboard> {
                 children: [
                   // Top Section
                   Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 40),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 40.h),
                     decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
@@ -158,8 +159,8 @@ class _MaindashboardState extends State<Maindashboard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: 20.h,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -171,7 +172,7 @@ class _MaindashboardState extends State<Maindashboard> {
                                   "Hii,",
                                   style: GoogleFonts.poppins(
                                     color: Colors.white,
-                                    fontSize: 30,
+                                    fontSize: 30.sp,
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
@@ -188,8 +189,8 @@ class _MaindashboardState extends State<Maindashboard> {
                                     );
                                   },
                                   child: Container(
-                                    height: 40,
-                                    width: 40,
+                                    height: 40.h,
+                                    width: 40.w,
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
@@ -198,15 +199,15 @@ class _MaindashboardState extends State<Maindashboard> {
                                             border:
                                                 Border.all(color: Colors.white),
                                             shape: BoxShape.circle),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.notification_important_outlined,
-                                          size: 25,
+                                          size: 25.sp,
                                           color: Colors.white,
                                         )),
                                   ),
                                 ),
                                 SizedBox(
-                                  width: 10,
+                                  width: 10.w,
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -218,8 +219,8 @@ class _MaindashboardState extends State<Maindashboard> {
                                     );
                                   },
                                   child: Container(
-                                    height: 40,
-                                    width: 40,
+                                    height: 40.h,
+                                    width: 40.w,
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                     ),
@@ -228,9 +229,9 @@ class _MaindashboardState extends State<Maindashboard> {
                                             border:
                                                 Border.all(color: Colors.white),
                                             shape: BoxShape.circle),
-                                        child: const Icon(
+                                        child: Icon(
                                           Icons.person,
-                                          size: 25,
+                                          size: 25.sp,
                                           color: Colors.white,
                                         )),
                                   ),
@@ -241,21 +242,21 @@ class _MaindashboardState extends State<Maindashboard> {
                               "${Sessiondata.usernameget}",
                               style: GoogleFonts.poppins(
                                 color: Colors.white,
-                                fontSize: 30,
+                                fontSize: 30.sp,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        SizedBox(height: 10.h),
                         Container(
                           decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(12.r),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.1),
-                                blurRadius: 10,
+                                blurRadius: 10.r,
                                 offset: const Offset(0, 5),
                               )
                             ],
@@ -263,12 +264,12 @@ class _MaindashboardState extends State<Maindashboard> {
                           child: TextField(
                             controller: _searchController,
                             decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 15, vertical: 10),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 15.w, vertical: 10.h),
                               hintText: "Search Mess or Menu",
                               prefixIcon: const Icon(Icons.search),
                               border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(12.r),
                                 borderSide: BorderSide.none,
                               ),
                             ),
@@ -280,19 +281,19 @@ class _MaindashboardState extends State<Maindashboard> {
                   const SizedBox(height: 20),
                   // Categories Section
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Categories",
                           style: GoogleFonts.poppins(
-                            fontSize: 18,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w600,
                             color: Colors.black,
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        SizedBox(height: 15.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -309,20 +310,20 @@ class _MaindashboardState extends State<Maindashboard> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   // Mess List
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
                     child: Text(
                       "Top Mess",
                       style: GoogleFonts.poppins(
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.black,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   // Apply animations only after the splash screen
                   AnimatedOpacity(
                     opacity:
@@ -360,27 +361,27 @@ class _MaindashboardState extends State<Maindashboard> {
       child: Column(
         children: [
           Container(
-            height: 60,
-            width: 60,
+            height: 60.h,
+            width: 60.w,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: const Color.fromRGBO(255, 121, 46, 0.2),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
+                  blurRadius: 10.r,
                   offset: const Offset(0, 5),
                 )
               ],
             ),
             child: Icon(icon,
-                size: 30, color: const Color.fromRGBO(255, 121, 46, 1)),
+                size: 30.sp, color: const Color.fromRGBO(255, 121, 46, 1)),
           ),
           const SizedBox(height: 8),
           Text(
             title,
             style: GoogleFonts.poppins(
-              fontSize: 12,
+              fontSize: 12.sp,
               fontWeight: FontWeight.w500,
               color: Colors.black,
             ),
@@ -402,15 +403,15 @@ class _MaindashboardState extends State<Maindashboard> {
         );
       },
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        padding: const EdgeInsets.all(15),
+        margin: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+        padding: EdgeInsets.all(15.w),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.w),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
+              blurRadius: 10.r,
               offset: const Offset(0, 5),
             ),
           ],
@@ -418,10 +419,10 @@ class _MaindashboardState extends State<Maindashboard> {
         child: Row(
           children: [
             Container(
-              height: 80,
-              width: 80,
+              height: 80.h,
+              width: 80.w,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(15.r),
                 color: const Color.fromRGBO(233, 243, 249, 1),
               ),
               child: Image.asset(
@@ -429,31 +430,31 @@ class _MaindashboardState extends State<Maindashboard> {
                 fit: BoxFit.cover,
               ),
             ),
-            const SizedBox(width: 15),
+            SizedBox(width: 15.w),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   mess.messname,
                   style: GoogleFonts.poppins(
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w600,
                     color: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 5),
+                SizedBox(height: 5.h),
                 Text(
                   "DRY GOBI | RAJMA",
                   style: GoogleFonts.poppins(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     color: Colors.grey,
                   ),
                 ),
-                const SizedBox(height: 5),
+                SizedBox(height: 5.h),
                 Text(
                   "Pune - 1.3 km",
                   style: GoogleFonts.poppins(
-                    fontSize: 12,
+                    fontSize: 12.sp,
                     color: Colors.grey,
                   ),
                 ),
@@ -493,13 +494,13 @@ class _MaindashboardState extends State<Maindashboard> {
                   children: [
                     Icon(
                       Icons.star,
-                      size: 25,
+                      size: 25.sp,
                       color: Color(0xFFFFD700),
                     ),
                     Text(
                       mess.avgRating.toStringAsFixed(1),
                       style: GoogleFonts.poppins(
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         color: Color(0xFFFFD700),
                         fontWeight: FontWeight.w500,
                       ),

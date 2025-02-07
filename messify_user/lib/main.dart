@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz_data;
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -59,9 +62,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize screen dimensions
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
+    log("${screenWidth}");
+    log("${screenHeight}");
 
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -214,9 +218,16 @@ class _NotificationState extends State<Notification> {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Splashscreen(), // Assuming you have a SplashScreen widget
+    return ScreenUtilInit(
+      designSize: const Size(411, 890),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return const MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Splashscreen(),
+        );
+      },
     );
   }
 }

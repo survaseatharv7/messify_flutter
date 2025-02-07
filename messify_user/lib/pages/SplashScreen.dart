@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:messify/pages/MainDashboard.dart';
 import 'package:messify/pages/loginScreen.dart';
 import 'package:messify/pages/sessionData.dart';
@@ -52,17 +53,17 @@ class _SplashscreenState extends State<Splashscreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: 250,
-              width: 300,
+              height: 250.h,
+              width: 300.w,
               child: Image.asset(
                 "assets/messify.png",
                 fit: BoxFit.fill,
               ),
             ),
-            const SizedBox(height: 2),
+             SizedBox(height: 2.h),
             Container(
-              height: 300,
-              width: 300,
+              height: 300.h,
+              width: 300.w,
               child: Image.asset("assets/logo.png"),
             ),
           ],
