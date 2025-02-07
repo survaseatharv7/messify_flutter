@@ -1,19 +1,45 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
+import 'package:messify_owner/pages/HomeScreen/Maindashboard.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Splashscreen extends StatelessWidget {
+class Splashscreen extends StatefulWidget {
   const Splashscreen({super.key});
 
-  void navigate(BuildContext context) {
+  @override
+  State<Splashscreen> createState() => _SplashscreenState();
+}
+
+class _SplashscreenState extends State<Splashscreen> {
+  bool? isLoggedIn;
+
+  void navigate(BuildContext context) async {
+    loggedStatus();
+    SessionData.getSessionData();
+    log("MessName : ${SessionData.messName}");
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Loginscreen(),
-        ),
-      );
+      if (isLoggedIn!)
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Maindashboard(),
+          ),
+        );
+      if (!isLoggedIn!)
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Loginscreen()));
     });
+  }
+
+  Future<void> loggedStatus() async {
+    final SharedPreferences sharedPreferences =
+        await SharedPreferences.getInstance();
+    SessionData.getSessionData();
+    isLoggedIn = sharedPreferences.getBool("isLoggedIn") ?? false;
   }
 
   @override

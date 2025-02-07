@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/models/breakfastModel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 
 class Breakfastmenu extends StatefulWidget {
   Breakfastmenu({super.key, required this.isSnackSelected});
@@ -22,7 +23,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
   void snackListGetter() async {
     QuerySnapshot response = await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Snack')
         .get();
     snackList.clear();
@@ -31,6 +32,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
       Map map = {};
       map['item'] = documentSnapshot['item'];
       map['price'] = documentSnapshot['price'];
+      map['docId'] = documentSnapshot.id;
       /* map['item'] = response.docs[i].['item'];
       map['price'] = response.docs[i].get('price');*/
       snackList.add(map);
@@ -41,11 +43,11 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
   void itemRemover(int index) async {
     await FirebaseFirestore.instance
         .collection('Menu')
-        .doc("${MainApp.messName}")
+        .doc("${SessionData.messName}")
         .collection(widget.isSnackSelected ? 'Snack' : 'NonVeg')
         .doc(widget.isSnackSelected
-            ? '${snackList[index]['item']}'
-            : "${nonvegList[index]['item']}")
+            ? '${snackList[index]['docId']}'
+            : "${nonvegList[index]['docId']}")
         .delete();
     snackListGetter();
     nonvegListGetter();
@@ -54,7 +56,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
   void nonvegListGetter() async {
     QuerySnapshot response = await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('NonVeg')
         .get();
     nonvegList.clear();
@@ -63,6 +65,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
       Map map = {};
       map['item'] = documentSnapshot['item'];
       map['price'] = documentSnapshot['price'];
+      map['docId'] = documentSnapshot.id;
       /*map['item'] = response.docs[i].get('item');
       map['price'] = response.docs[i].get('price');*/
       nonvegList.add(map);
@@ -103,7 +106,9 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                 ? "Add or Edit Snacks"
                 : "Add or Edit Non-Veg Menus",
             style: GoogleFonts.poppins(
-                color: Colors.black, fontSize: MainApp.widthCal(20), fontWeight: FontWeight.w500),
+                color: Colors.black,
+                fontSize: MainApp.widthCal(20),
+                fontWeight: FontWeight.w500),
           ),
         ),
         body: ListView.builder(
@@ -133,8 +138,16 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                     SlidableAction(
                       onPressed: (context) {
-                        // Handle edit action
-                        // Add logic for editing if required
+                        if (widget.isSnackSelected) {
+                          itemController.text = snackList[index]['item'];
+                          priceController.text = snackList[index]['price'];
+                          bottomSheet(isedit: true, index: index);
+                        } else {
+                          itemController.text = nonvegList[index]['item'];
+                          priceController.text = nonvegList[index]['price'];
+                          bottomSheet(isedit: true, index: index);
+                        }
+                        setState(() {});
                       },
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
@@ -144,7 +157,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                   ],
                 ),
                 child: Padding(
-                  padding:  EdgeInsets.all(MainApp.widthCal(8)),
+                  padding: EdgeInsets.all(MainApp.widthCal(8)),
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
@@ -152,7 +165,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
-                      padding:  EdgeInsets.all(MainApp.widthCal(8)),
+                      padding: EdgeInsets.all(MainApp.widthCal(8)),
                       child: Row(
                         children: [
                           Text(
@@ -183,7 +196,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
             }),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.orange,
-          child:  Icon(
+          child: Icon(
             Icons.add,
             size: MainApp.widthCal(50),
             color: Colors.white,
@@ -196,36 +209,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
     );
   }
 
-  Widget template(int index, String) {
-    return Padding(
-      padding:  EdgeInsets.all(MainApp.widthCal(8)),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        color: Colors.orange,
-        child: Row(
-          children: [
-            Text(
-              "",
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: MainApp.widthCal(20),
-                  fontWeight: FontWeight.w500),
-            ),
-            Spacer(),
-            Text(
-              "",
-              style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: MainApp.widthCal(20),
-                  fontWeight: FontWeight.w500),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void submit({bool isedit = false}) async {
+  void submit({bool isedit = false, int index = 0}) async {
     if (!isedit) {
       if (itemController.text.isNotEmpty &&
           priceController.text.trim().isNotEmpty) {
@@ -236,14 +220,10 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
 
           await FirebaseFirestore.instance
               .collection('Menu')
-              .doc(MainApp.messName)
+              .doc(SessionData.messName)
               .collection('Snack')
-              .doc('${itemController.text.trim()}')
-              .set(map);
+              .add(map);
 
-          /*snackList.add(breakFastModel(
-              item: itemController.text.trim(),
-              price: double.tryParse(priceController.text.trim()) ?? 0.0));*/
           itemController.clear();
           priceController.clear();
         } else {
@@ -253,23 +233,44 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
 
           await FirebaseFirestore.instance
               .collection('Menu')
-              .doc(MainApp.messName)
+              .doc(SessionData.messName)
               .collection('NonVeg')
-              .doc('${itemController.text.trim()}')
-              .set(map);
+              .add(map);
           itemController.clear();
           priceController.clear();
         }
       }
     } else {
-      if (itemController.text.trim().isNotEmpty &&
-          priceController.text.trim().isNotEmpty) {}
+      if (widget.isSnackSelected) {
+        Map<String, dynamic> map = {};
+        map['item'] = itemController.text.trim();
+        map['price'] = priceController.text.trim();
+        map['docId'] = snackList[index]['docId'];
+        await FirebaseFirestore.instance
+            .collection("Menu")
+            .doc(SessionData.messName)
+            .collection("Snack")
+            .doc(snackList[index]['docId'])
+            .set(map);
+      } else {
+        Map<String, dynamic> map = {};
+        map['item'] = itemController.text.trim();
+        map['price'] = priceController.text.trim();
+        map['docId'] = nonvegList[index]['docId'];
+        await FirebaseFirestore.instance
+            .collection("Menu")
+            .doc(SessionData.messName)
+            .collection("NonVeg")
+            .doc(nonvegList[index]['docId'])
+            .set(map);
+      }
     }
     setState(() {});
+
     Navigator.of(context).pop();
   }
 
-  Future bottomSheet() {
+  Future bottomSheet({bool isedit = false, int? index}) {
     return showModalBottomSheet(
         isScrollControlled: true,
         context: context,
@@ -284,7 +285,7 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Padding(
-                    padding:  EdgeInsets.all(MainApp.widthCal(8)),
+                    padding: EdgeInsets.all(MainApp.widthCal(8)),
                     child: Text(
                       "Add New Menu Here",
                       style: GoogleFonts.poppins(
@@ -294,7 +295,8 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(30), left: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(30), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
@@ -308,14 +310,18 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
                         controller: itemController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -324,7 +330,8 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(15), left: MainApp.widthCal(20)),
                     child: Row(
                       children: [
                         Text(
@@ -338,7 +345,10 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.only(top: MainApp.heightCal(5), left: MainApp.widthCal(20), right: MainApp.widthCal(20)),
+                    padding: EdgeInsets.only(
+                        top: MainApp.heightCal(5),
+                        left: MainApp.widthCal(20),
+                        right: MainApp.widthCal(20)),
                     child: Container(
                       width: MediaQuery.of(context).size.width,
                       child: TextField(
@@ -347,7 +357,8 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                             decimal: true),
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(MainApp.widthCal(15)),
+                          borderRadius:
+                              BorderRadius.circular(MainApp.widthCal(15)),
                           borderSide: const BorderSide(
                             color: Colors.orange,
                           ),
@@ -356,10 +367,10 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                     ),
                   ),
                   Padding(
-                    padding:  EdgeInsets.all(MainApp.widthCal(40)),
+                    padding: EdgeInsets.all(MainApp.widthCal(40)),
                     child: GestureDetector(
                       onTap: () {
-                        if (!isEdit)
+                        if (!isedit)
                           submit(isedit: false);
                         else
                           submit(isedit: true);
@@ -370,10 +381,11 @@ class _BreakfastmenuState extends State<Breakfastmenu> {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(MainApp.widthCal(20)),
+                            borderRadius:
+                                BorderRadius.circular(MainApp.widthCal(20)),
                             color: Colors.orange),
                         child: Padding(
-                          padding:  EdgeInsets.all(MainApp.widthCal(15)),
+                          padding: EdgeInsets.all(MainApp.widthCal(15)),
                           child: Center(
                             child: Text(
                               "Submit",

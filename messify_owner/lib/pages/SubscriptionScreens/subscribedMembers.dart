@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:messify_owner/main.dart';
 import 'package:intl/intl.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 import 'package:messify_owner/pages/SubscriptionScreens/addMemberToSubscription.dart';
 
 class Subscribedmembers extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SubscribedmembersState extends State<Subscribedmembers> {
   void subscribedUserListGetter() async {
     QuerySnapshot response = await _firebaseFirestore
         .collection('subscribedUsers')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('allSubscribedUsers')
         .get();
     subscribedUserlist.clear();
@@ -55,7 +56,7 @@ class _SubscribedmembersState extends State<Subscribedmembers> {
   void memberRemover(int index) async {
     await _firebaseFirestore
         .collection('subscribedUsers')
-        .doc("${MainApp.messName}")
+        .doc("${SessionData.messName}")
         .collection('allSubscribedUsers')
         .doc('${subscribedUserlist[index]['username']}')
         .delete();

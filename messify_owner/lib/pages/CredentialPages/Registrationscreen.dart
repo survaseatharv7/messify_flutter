@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messify_owner/main.dart';
 import 'package:messify_owner/models/ownerdetails.dart';
 import 'package:messify_owner/pages/CredentialPages/Loginscreen.dart';
+import 'package:messify_owner/widgets/custom_snackbar.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -33,7 +34,11 @@ class _RegistrationState extends State<Registration> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: const Icon(Icons.arrow_back_ios),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(Icons.arrow_back_ios)),
         title: Text(
           "Create Account",
           style: GoogleFonts.poppins(
@@ -190,7 +195,7 @@ class _RegistrationState extends State<Registration> {
                             color: Colors.black,
                             size: MainApp.widthCal(20),
                           ),
-                          hintText: "   Enter Owner Name",
+                          hintText: "Enter Owner Name",
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.circular(MainApp.widthCal(10)))),
@@ -212,7 +217,7 @@ class _RegistrationState extends State<Registration> {
                             color: Colors.black,
                             size: MainApp.widthCal(20),
                           ),
-                          hintText: "   Enter Phone Number",
+                          hintText: "Enter Phone Number",
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.circular(MainApp.widthCal(10)))),
@@ -234,7 +239,7 @@ class _RegistrationState extends State<Registration> {
                             color: Colors.black,
                             size: MainApp.widthCal(20),
                           ),
-                          hintText: "   Enter Email",
+                          hintText: "Enter Email",
                           border: OutlineInputBorder(
                               borderRadius:
                                   BorderRadius.circular(MainApp.widthCal(10)))),
@@ -299,48 +304,57 @@ class _RegistrationState extends State<Registration> {
                               _mobilenoController.text.trim().isNotEmpty &&
                               _emailController.text.trim().isNotEmpty &&
                               _passwordController.text.trim().isNotEmpty) {
-                            UserCredential _userCredential = await _firebaseAuth
-                                .createUserWithEmailAndPassword(
-                                    email: _emailController.text,
-                                    password: _passwordController.text);
+                            try {
+                              UserCredential _userCredential =
+                                  await _firebaseAuth
+                                      .createUserWithEmailAndPassword(
+                                          email: _emailController.text,
+                                          password: _passwordController.text);
 
-                            Map<String, dynamic> data = {
-                              "username": _nameController.text.trim(),
-                              "ownername": _ownernameController.text.trim(),
-                              "Phonenumber": _mobilenoController.text.trim(),
-                              "Email": _emailController.text.trim(),
-                              "Password": _passwordController.text.trim(),
-                              'vegType': vegType,
-                              'nonvegType': nonvegType,
-                              'tiffinType': tiffinType,
-                              'totalRating': 0,
-                              'noOfRaters': 0,
-                            };
+                              Map<String, dynamic> data = {
+                                "username": _nameController.text.trim(),
+                                "ownername": _ownernameController.text.trim(),
+                                "Phonenumber": _mobilenoController.text.trim(),
+                                "Email": _emailController.text.trim(),
+                                "Password": _passwordController.text.trim(),
+                                'vegType': vegType,
+                                'nonvegType': nonvegType,
+                                'tiffinType': tiffinType,
+                                'totalRating': 0,
+                                'noOfRaters': 0,
+                              };
 
-                            // Use await to wait for the Firestore operation to complete
-                            await FirebaseFirestore.instance
-                                .collection("Messinfo")
-                                .doc(_nameController.text)
-                                .set(data);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text("Data Added Successfully")));
+                              // Use await to wait for the Firestore operation to complete
+                              await FirebaseFirestore.instance
+                                  .collection("Messinfo")
+                                  .doc(_nameController.text)
+                                  .set(data);
+                              CustomSnackBar.customSnackBar(
+                                  context: context,
+                                  text: "Mess Registered SuccessFully",
+                                  color: Colors.green);
 
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Loginscreen()));
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Loginscreen()));
+                            } on FirebaseAuthException catch (e) {
+                              CustomSnackBar.customSnackBar(
+                                  context: context,
+                                  text: "${e.message}",
+                                  color: Colors.red);
+                            }
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content:
-                                        Text("Please fill in all fields")));
+                            CustomSnackBar.customSnackBar(
+                                context: context,
+                                text: "Please fill in all fields",
+                                color: Colors.red);
                           }
                         } catch (e) {
-                          // Print the error for debugging
-                          print("Error adding data: ${e.toString()}");
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error adding data: $e")));
+                          CustomSnackBar.customSnackBar(
+                              context: context,
+                              text: "An error occured something went wrong",
+                              color: Colors.red);
                         }
                       }
                     },

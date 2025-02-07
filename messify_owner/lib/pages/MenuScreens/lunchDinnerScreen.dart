@@ -8,6 +8,7 @@ import 'package:messify_owner/models/breadModel.dart';
 import 'package:messify_owner/models/lunchDinnerModel.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:messify_owner/models/mainCourseModel.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
 //import 'maincourseModel.dart';
 
 class LunchDinner extends StatefulWidget {
@@ -336,7 +337,7 @@ class __LunchDinnerState extends State<LunchDinner> {
   void deleteLunch() async {
     await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Lunch')
         .doc('LunchMenu')
         .delete();
@@ -345,7 +346,7 @@ class __LunchDinnerState extends State<LunchDinner> {
   void deleteDinner() async {
     await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Dinner')
         .doc('DinnerMenu')
         .delete();
@@ -358,7 +359,7 @@ class __LunchDinnerState extends State<LunchDinner> {
   Stream<List<Map<String, dynamic>>> lunchListStream() {
     return FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Lunch')
         .snapshots()
         .map((snapshot) {
@@ -380,7 +381,7 @@ class __LunchDinnerState extends State<LunchDinner> {
   Stream<List<Map<String, dynamic>>> dinnerListStream() {
     return FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Dinner')
         .snapshots()
         .map((snapshot) {
@@ -402,7 +403,7 @@ class __LunchDinnerState extends State<LunchDinner> {
   void lunchListGetter() async {
     DocumentSnapshot response = await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Lunch')
         .doc('LunchMenu')
         .get();
@@ -436,7 +437,7 @@ class __LunchDinnerState extends State<LunchDinner> {
   void dinnerListGetter() async {
     DocumentSnapshot response = await FirebaseFirestore.instance
         .collection('Menu')
-        .doc('${MainApp.messName}')
+        .doc('${SessionData.messName}')
         .collection('Dinner')
         .doc('DinnerMenu')
         .get();
@@ -493,7 +494,7 @@ class __LunchDinnerState extends State<LunchDinner> {
 
         await FirebaseFirestore.instance
             .collection('Menu')
-            .doc(MainApp.messName)
+            .doc(SessionData.messName)
             .collection('Lunch')
             .doc('LunchMenu')
             .set(map);
@@ -511,7 +512,7 @@ class __LunchDinnerState extends State<LunchDinner> {
 
         await FirebaseFirestore.instance
             .collection('Menu')
-            .doc(MainApp.messName)
+            .doc(SessionData.messName)
             .collection('Dinner')
             .doc('DinnerMenu')
             .set(map);
@@ -526,6 +527,7 @@ class __LunchDinnerState extends State<LunchDinner> {
       priceController.clear();
     }
     setState(() {});
+
     Navigator.of(context).pop();
   }
 

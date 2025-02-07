@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:messify_owner/pages/BoardingPages/Splashscreen.dart';
 import 'package:messify_owner/pages/BoardingPages/firstonboardingscreen.dart';
 
 void main() async {
@@ -44,7 +45,7 @@ class MainApp extends StatelessWidget {
 
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FirstOnboardingScreen(),
+      home: Splashscreen(),
     );
   }
 }

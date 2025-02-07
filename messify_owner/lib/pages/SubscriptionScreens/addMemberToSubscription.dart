@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:messify_owner/main.dart';
+import 'package:messify_owner/pages/SessionMananger/session_data.dart';
+import 'package:messify_owner/widgets/custom_snackbar.dart';
 
 class AddMember extends StatefulWidget {
   final VoidCallback onUpdate;
@@ -25,6 +27,82 @@ class _AddMemberState extends State<AddMember> {
   DateTime? _selectedDate;
   bool monthType = false;
   bool tokenType = false;
+
+  void addMonthTypeSubscriber() async {
+    try {
+      if (_dateController.text.trim().isNotEmpty &&
+          _numberOfMonthsController.text.trim().isNotEmpty) {
+        Map<String, dynamic> data = {
+          'username': userMap['username'],
+          'name': userMap['name'],
+          'subscriberType': 'month',
+        };
+        int days = 0;
+        for (int i = 1;
+            i <= int.parse(_numberOfMonthsController.text.trim());
+            i++) {
+          days += 60;
+        }
+        data['token'] = days;
+        data['timeStamp'] = Timestamp.now();
+        await FirebaseFirestore.instance
+            .collection('subscribedUsers')
+            .doc('${SessionData.messName}')
+            .collection('allSubscribedUsers')
+            .doc('${data['username']}')
+            .set(data);
+        widget.onUpdate();
+        CustomSnackBar.customSnackBar(
+            context: context,
+            text:
+                "${userMap['username']} successfully added to Subscribed Members",
+            color: Colors.blue);
+        _dateController.clear();
+        _numberOfMonthsController.clear();
+        Navigator.pop(context);
+      } else {
+        CustomSnackBar.customSnackBar(
+            context: context,
+            text: "Please fill in all fields",
+            color: Colors.red);
+      }
+    } catch (e) {
+      CustomSnackBar.customSnackBar(
+          context: context, text: "Error occured try again", color: Colors.red);
+    }
+  }
+
+  void addTokenTypeSubscriber() async {
+    try {
+      if (_tokenController.text.trim().isNotEmpty) {
+        Map<String, dynamic> data = {
+          'username': userMap['username'],
+          'name': userMap['name'],
+          'token': int.parse(
+            _tokenController.text.trim(),
+          ),
+          'subscriberType': 'token'
+        };
+        await FirebaseFirestore.instance
+            .collection('subscribedUsers')
+            .doc('${SessionData.messName}')
+            .collection('allSubscribedUsers')
+            .doc('${data['username']}')
+            .set(data);
+        widget.onUpdate();
+        CustomSnackBar.customSnackBar(
+            context: context,
+            text:
+                "${userMap['username']} successfully added to Subscribed Members",
+            color: Colors.blue);
+        Navigator.pop(context);
+        _tokenController.clear();
+      }
+    } catch (e) {
+      CustomSnackBar.customSnackBar(
+          context: context, text: "Error occured try again", color: Colors.red);
+    }
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
@@ -203,6 +281,10 @@ class _AddMemberState extends State<AddMember> {
                       TextField(
                         controller: _dateController,
                         readOnly: true,
+                        onTap: () {
+                          _selectDate(context);
+                          setState(() {});
+                        },
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: Colors.white,
@@ -221,7 +303,6 @@ class _AddMemberState extends State<AddMember> {
                       ),
                       const SizedBox(height: 10),
 
-                      // Number of Months Input
                       TextField(
                         controller: _numberOfMonthsController,
                         decoration: InputDecoration(
@@ -254,24 +335,14 @@ class _AddMemberState extends State<AddMember> {
                       Center(
                         child: GestureDetector(
                           onTap: () async {
-                            try {
-                              if (_tokenController.text.trim().isNotEmpty) {
-                                Map<String, dynamic> data = {
-                                  'username': userMap['username'],
-                                  'name': userMap['name'],
-                                  'token':
-                                      int.parse(_tokenController.text.trim()),
-                                };
-                                await FirebaseFirestore.instance
-                                    .collection('subscribedUsers')
-                                    .doc('${MainApp.messName}')
-                                    .collection('allSubscribedUsers')
-                                    .doc('${data['username']}')
-                                    .set(data);
-                                widget.onUpdate();
-                                Navigator.pop(context);
-                              }
-                            } catch (e) {}
+                            if (monthType) {
+                              addMonthTypeSubscriber();
+                              setState(() {});
+                            } else {
+                              addTokenTypeSubscriber();
+
+                              setState(() {});
+                            }
                           },
                           child: Container(
                             width: MainApp.widthCal(250),
